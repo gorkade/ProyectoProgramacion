@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class DatosReserva extends VentanaPrincipal {
     private JPanel miPanel;//contenedor de los componentes
     private JMenuBar barraMenu;
@@ -128,6 +131,14 @@ public class DatosReserva extends VentanaPrincipal {
                     String ciudad = (String) Ciudad.getText();
                     String pais = (String) comboPais.getSelectedItem();
                     String cp = (String) CP.getText();
+
+                    try {
+                        Statement sentencia = ConexionDB.miConexion.createStatement();
+
+
+                    } catch (SQLException ex) {
+
+                    }
 
                     ServiciosExtra ServiciosExtra = new ServiciosExtra();
                     ServiciosExtra.setVisible(true);
