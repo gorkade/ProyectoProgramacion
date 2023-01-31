@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class SeleccionarParking extends JFrame implements ActionListener {
     private JPanel miPanel;//contenedor de los componentes
@@ -188,7 +189,14 @@ public class SeleccionarParking extends JFrame implements ActionListener {
             String fechaSalida = calendarioSalida.getDate().toString();
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
-            HabitacionesDisponibles ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
+            HabitacionesDisponibles ventanaHabitaciones = null;
+            try {
+                ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
             ventanaHabitaciones.setVisible(true);
 
             this.setVisible(false);
