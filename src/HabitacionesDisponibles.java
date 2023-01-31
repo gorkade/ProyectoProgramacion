@@ -31,9 +31,16 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
     private void iniciarComponentes(String tipoHabitacion, int numCamasHabitacion, String fechaLlegada, String fechaSalida, String tipoParking) throws ClassNotFoundException, SQLException {
 
-        /**/
+        /*
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conexion = null;
+        conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/gestionhoteles", "guilleman", "tenismanza");
 
-        Statement sentencia = ConexionDB.ConectarDB();
+        Statement sentencia = conexion.createStatement();
+*/
+        //ConexionDB.ConectarDB();
+        Statement sentencia = ConexionDB.miConexion.createStatement();
+        int numHabEjemplo = 10;
 
 
 
@@ -126,14 +133,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==menuHorarios){
-            VentanaHorarios ventanaHorarios = null;
-            try {
-                ventanaHorarios = new VentanaHorarios();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
+            VentanaHorarios ventanaHorarios = new VentanaHorarios();
             ventanaHorarios.setVisible(true);
 
             this.setVisible(false);
