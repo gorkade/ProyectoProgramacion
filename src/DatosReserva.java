@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-public class DatosReserva extends VentanaPrincipal{
+public class DatosReserva extends VentanaPrincipal {
     private JPanel miPanel;//contenedor de los componentes
     private JMenuBar barraMenu;
     private JMenu menuReserva, menuHorarios,menuDatos;
@@ -33,6 +32,10 @@ public class DatosReserva extends VentanaPrincipal{
     private void iniciarComponentes() {
 
         /**/
+
+
+        ConexionDB.ConectarDB();
+
 
         /*Inicia instancias de los componentes*/
         miPanel = new JPanel();
@@ -112,7 +115,12 @@ public class DatosReserva extends VentanaPrincipal{
         barraMenu.add(menuDatos);
 
         setJMenuBar(barraMenu);
-        enviar.addActionListener(this);
+        enviar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
 
         miPanel.add(labelNombre);
@@ -135,7 +143,9 @@ public class DatosReserva extends VentanaPrincipal{
         add(miPanel);
 
         enviar.setVisible(true);
+
     }
+
 
 }
 
