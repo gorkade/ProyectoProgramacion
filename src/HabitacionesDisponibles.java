@@ -14,7 +14,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     private Button seleccionar;
 
 
-    public HabitacionesDisponibles(final String tipoHabitacion, final int numCamasHabitacion, final String fechaLlegada, final String fechaSalida, final String tipoParking) throws SQLException, ClassNotFoundException {
+    public HabitacionesDisponibles(final String tipoHabitacion, final int numCamasHabitacion, final String fechaLlegada, final String fechaSalida, final String tipoParking) throws SQLException{
         super();
         iniciarComponentes(tipoHabitacion, numCamasHabitacion, fechaLlegada, fechaSalida, tipoParking);
         //Asigna un titulo a la barra de titulo
@@ -24,12 +24,12 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
         //pone la ventana en el Centro de la pantalla
         setLocationRelativeTo(null);
         /*impide que la ventana cambie de tamaño*/
-        setResizable(true);
+        setResizable(false);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes(String tipoHabitacion, int numCamasHabitacion, String fechaLlegada, String fechaSalida, String tipoParking) throws ClassNotFoundException, SQLException {
+    private void iniciarComponentes(String tipoHabitacion, int numCamasHabitacion, String fechaLlegada, String fechaSalida, String tipoParking) throws  SQLException {
 
         /*
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -133,8 +133,9 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==menuHorarios){
+            VentanaHorarios ventanaHorarios = null;
 
-            VentanaHorarios ventanaHorarios = new VentanaHorarios();
+                ventanaHorarios = new VentanaHorarios();
 
             ventanaHorarios.setVisible(true);
 
