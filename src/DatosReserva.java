@@ -11,7 +11,7 @@ public class DatosReserva extends VentanaPrincipal {
     private JComboBox comboPais;
     /*labels de los menus para mostrar en pantalla*/
     private JLabel labelNombre, labelApellidos, labelNIF, labelDireccion, labelTelefono, labelCiudad, labelPais, labelCP;
-    private Button enviar;
+    private Button continuar;
 
     String[] pais = {"Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue"};
     public DatosReserva()//constructor
@@ -67,7 +67,7 @@ public class DatosReserva extends VentanaPrincipal {
         labelPais = new JLabel();
         labelCP = new JLabel();
 
-        enviar = new Button("Enviar");
+        continuar = new Button("Continuar");
         /*Fin instancias de los componentes*/
 
         /*Labels*/
@@ -104,7 +104,7 @@ public class DatosReserva extends VentanaPrincipal {
         labelCP.setText("Codigo Postal : ");
         CP.setBounds(110, 250,70, 20);
 
-        enviar.setBounds(550, 250, 100, 30);
+        continuar.setBounds(550, 250, 100, 30);
 
         /*Agrega los Menus de la barra de Menu*/
         menuReserva.setText("Reserva");
@@ -117,13 +117,26 @@ public class DatosReserva extends VentanaPrincipal {
         barraMenu.add(menuDatos);
 
         setJMenuBar(barraMenu);
-        enviar.addActionListener(new ActionListener() {
+        continuar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(e.getSource()==continuar) {
+                    String nombre = (String) Nombre.getText();
+                    String apellidos = (String) Apellidos.getText();
+                    String telefono = (String) Telefono.getText();
+                    String ciudad = (String) Ciudad.getText();
+                    String pais = (String) comboPais.getSelectedItem();
+                    String cp = (String) CP.getText();
 
+                    ServiciosExtra ServiciosExtra = new ServiciosExtra();
+                    ServiciosExtra.setVisible(true);
+
+                }
 
             }
+
+
         });
 
 
@@ -143,10 +156,10 @@ public class DatosReserva extends VentanaPrincipal {
         miPanel.add(comboPais);
         miPanel.add(labelCP);
         miPanel.add(CP);
-        miPanel.add(enviar);
+        miPanel.add(continuar);
         add(miPanel);
 
-        enviar.setVisible(true);
+        continuar.setVisible(true);
 
     }
 
