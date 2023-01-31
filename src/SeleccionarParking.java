@@ -196,10 +196,9 @@ public class SeleccionarParking extends JFrame implements ActionListener {
             try {
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(null,"Error con la base de datos");
             }
+
             ventanaHabitaciones.setVisible(true);
 
             this.setVisible(false);

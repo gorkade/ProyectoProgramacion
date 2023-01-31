@@ -26,7 +26,7 @@ public class DatosReserva extends VentanaPrincipal {
         /*impide que la ventana cambie de tamaño*/
         setResizable(false);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         setResizable(true);
     }
@@ -120,6 +120,7 @@ public class DatosReserva extends VentanaPrincipal {
         enviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
             }
         });

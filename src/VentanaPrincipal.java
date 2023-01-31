@@ -193,13 +193,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
             HabitacionesDisponibles ventanaHabitaciones = null;
+
             try {
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
+
+                JOptionPane.showMessageDialog(null,"Error en la base de datos");
+
             }
+
             ventanaHabitaciones.setVisible(true);
 
             this.setVisible(false);
