@@ -24,7 +24,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
         //pone la ventana en el Centro de la pantalla
         setLocationRelativeTo(null);
         /*impide que la ventana cambie de tamaño*/
-        setResizable(false);
+        setResizable(true);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

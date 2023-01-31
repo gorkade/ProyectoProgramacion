@@ -3,6 +3,7 @@ public class Main {
         ConexionDB.ConectarDB();
         VentanaPrincipal miFrame= new VentanaPrincipal();
         miFrame.setVisible(true);
+        miFrame.setResizable(true);
 
     }
 }

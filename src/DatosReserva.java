@@ -27,6 +27,8 @@ public class DatosReserva extends VentanaPrincipal {
         setResizable(false);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setResizable(true);
     }
 
     private void iniciarComponentes() {
