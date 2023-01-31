@@ -113,16 +113,11 @@ public class VentanaDatos extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == menuHorarios) {
-            VentanaHorarios miFrame= null;
-            try {
-                miFrame = new VentanaHorarios();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
-            miFrame.setVisible(true);
-            this.setVisible(false);
+
+                VentanaHorarios miFrame = new VentanaHorarios();
+
+                miFrame.setVisible(true);
+                this.setVisible(false);
         }
 
     }
