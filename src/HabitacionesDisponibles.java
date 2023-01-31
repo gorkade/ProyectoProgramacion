@@ -32,11 +32,8 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     private void iniciarComponentes(String tipoHabitacion, int numCamasHabitacion, String fechaLlegada, String fechaSalida, String tipoParking) throws ClassNotFoundException, SQLException {
 
         /**/
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conexion = null;
-        conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/gestionhoteles", "guilleman", "tenismanza");
 
-        Statement sentencia = conexion.createStatement();
+        Statement sentencia = ConexionDB.ConectarDB();
 
 
 

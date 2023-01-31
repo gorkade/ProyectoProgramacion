@@ -98,11 +98,8 @@ public class VentanaHorarios extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == consultar) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection conexion = null;
-                conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/gestionhoteles", "guilleman", "tenismanza");
-                Statement sentencia = null;
-                sentencia = conexion.createStatement();
+
+                Statement sentencia = ConexionDB.ConectarDB();
                 ResultSet resultado = sentencia.executeQuery("SELECT * FROM Empleado WHERE DNI like '" + dni.getText() + "'");
 
                 while (resultado.next()) {
@@ -110,8 +107,6 @@ public class VentanaHorarios extends JFrame implements ActionListener{
                     labelZona.setText("Zona: " + resultado.getString("zona"));
                 }
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
 

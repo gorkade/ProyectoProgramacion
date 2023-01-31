@@ -5,7 +5,7 @@ import java.sql.Statement;
 
 public class ConexionDB {
 
-    public static void ConectarDB(){
+    public static Statement ConectarDB(){
 
 
 
@@ -17,12 +17,14 @@ public class ConexionDB {
             //2.CREAR OBJETO STATEMENT
             Statement miStatement= miConexion.createStatement();
 
+            return miStatement;
+
         }catch(Exception e) {
 
             JOptionPane.showMessageDialog(null,"Error: No se ha establecido conexion con la base de datos");
 
 
-
+            return null;
 
         }
     }
