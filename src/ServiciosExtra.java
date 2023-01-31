@@ -71,17 +71,17 @@ public class ServiciosExtra extends DatosReserva{
         labelServiciosExtra.setBounds(10,0,200,30);
         labelServiciosExtra.setText("Servicios extra : ");
 
-        bar.setBounds(10,30,130,30);
-        restaurante.setBounds(10, 60, 130, 30);
-        actividades.setBounds(10, 90, 130, 30);
-        guarderia.setBounds(10, 120, 130, 30);
-        cajaFuerte.setBounds(10, 150, 130, 30);
+        bar.setBounds(10,30,230,30);
+        restaurante.setBounds(10, 60, 230, 30);
+        actividades.setBounds(10, 90, 230, 30);
+        guarderia.setBounds(10, 120, 230, 30);
+        cajaFuerte.setBounds(10, 150, 230, 30);
 
         labelOfertasDispo.setBounds(10, 180, 130, 30);
-        descuentoFamiliaN.setBounds(10,210, 130, 30);
+        descuentoFamiliaN.setBounds(10,210, 550, 30);
 
 
-        enviar.setBounds(300, 210, 100, 30);
+        enviar.setBounds(300, 245, 100, 30);
 
         /*Agrega los Menus de la barra de Menu*/
         menuReserva.setText("Reserva de Habitaciones");
