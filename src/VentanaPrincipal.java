@@ -200,6 +200,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             } catch (ClassNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
+
             ventanaHabitaciones.setVisible(true);
 
             this.setVisible(false);
