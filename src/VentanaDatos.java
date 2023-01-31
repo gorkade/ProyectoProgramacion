@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class VentanaDatos extends JFrame implements ActionListener {
     private JPanel miPanel;//contenedor de los componentes
@@ -112,7 +113,14 @@ public class VentanaDatos extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == menuHorarios) {
-            VentanaHorarios miFrame= new VentanaHorarios();
+            VentanaHorarios miFrame= null;
+            try {
+                miFrame = new VentanaHorarios();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
             miFrame.setVisible(true);
             this.setVisible(false);
         }

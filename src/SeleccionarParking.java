@@ -169,7 +169,14 @@ public class SeleccionarParking extends JFrame implements ActionListener {
         }
 
         if(e.getSource()==menuHorarios){
-            VentanaHorarios ventanaHorarios = new VentanaHorarios();
+            VentanaHorarios ventanaHorarios = null;
+            try {
+                ventanaHorarios = new VentanaHorarios();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
             ventanaHorarios.setVisible(true);
 
             this.setVisible(false);

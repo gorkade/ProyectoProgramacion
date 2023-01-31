@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class VentanaHorarios extends JFrame implements ActionListener{
     private JPanel miPanel;//contenedor de los componentes
@@ -12,7 +13,7 @@ public class VentanaHorarios extends JFrame implements ActionListener{
 
     private Button consultar;
 
-    public VentanaHorarios()//constructor
+    public VentanaHorarios() throws SQLException, ClassNotFoundException//constructor
     {
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
@@ -28,7 +29,6 @@ public class VentanaHorarios extends JFrame implements ActionListener{
     }
 
     private void iniciarComponentes() {
-
         /**/
 
         /*Inicia instancias de los componentes*/
@@ -97,8 +97,24 @@ public class VentanaHorarios extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == consultar) {
-            labelHorario.setText("Horario: " + "select horario from trabajador where dni = " + dni.getText());
-            labelZona.setText("Zona: " + "select zona from trabajador where dni = " + dni.getText());
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conexion = null;
+                conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/gestionhoteles", "guilleman", "tenismanza");
+                Statement sentencia = null;
+                sentencia = conexion.createStatement();
+                ResultSet resultado = sentencia.executeQuery("SELECT * FROM Empleado WHERE DNI like '" + dni.getText() + "'");
+
+                while (resultado.next()) {
+                    labelHorario.setText("Horario:      Hora Inicio: " + resultado.getString("horaInicio") + " Hora Fin: " + resultado.getString("horaFinal"));
+                    labelZona.setText("Zona: " + resultado.getString("zona"));
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+
             labelHorario.setVisible(true);
             labelZona.setVisible(true);
         }

@@ -38,8 +38,6 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
         Statement sentencia = conexion.createStatement();
 
-        int numHabEjemplo = 10;
-
 
 
         /*Inicia instancias de los componentes*/
@@ -131,7 +129,14 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==menuHorarios){
-            VentanaHorarios ventanaHorarios = new VentanaHorarios();
+            VentanaHorarios ventanaHorarios = null;
+            try {
+                ventanaHorarios = new VentanaHorarios();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
             ventanaHorarios.setVisible(true);
 
             this.setVisible(false);
