@@ -13,7 +13,7 @@ public class VentanaHorarios extends JFrame implements ActionListener{
 
     private Button consultar;
 
-    public VentanaHorarios() throws SQLException, ClassNotFoundException//constructor
+    public VentanaHorarios() //constructor
     {
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
@@ -97,9 +97,10 @@ public class VentanaHorarios extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == consultar) {
+
             try {
 
-                Statement sentencia = ConexionDB.ConectarDB();
+                Statement sentencia = ConexionDB.miConexion.createStatement();
                 ResultSet resultado = sentencia.executeQuery("SELECT * FROM Empleado WHERE DNI like '" + dni.getText() + "'");
 
                 while (resultado.next()) {

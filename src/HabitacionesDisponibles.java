@@ -133,7 +133,9 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==menuHorarios){
+
             VentanaHorarios ventanaHorarios = new VentanaHorarios();
+
             ventanaHorarios.setVisible(true);
 
             this.setVisible(false);
