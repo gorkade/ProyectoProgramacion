@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatosReserva extends VentanaPrincipal {
@@ -22,7 +23,7 @@ public class DatosReserva extends VentanaPrincipal {
         //Asigna un titulo a la barra de titulo
         setTitle("Menú de Reserva Ejemplo : Titulo De La ventana");
         //tamaño de la ventana
-        setSize(700,330);
+        setSize(700,340);
         //pone la ventana en el Centro de la pantalla
         setLocationRelativeTo(null);
         /*impide que la ventana cambie de tamaño*/
@@ -140,8 +141,14 @@ public class DatosReserva extends VentanaPrincipal {
 
                 try {
                     Statement miStatement = ConexionDB.miConexion.createStatement();
-                    String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
-                    miStatement.executeUpdate(instruccionSQL);
+                    ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI = '"+nif+"'");
+                    if(miResultSet.next()){
+                        JOptionPane.showMessageDialog(null, "El cliente ya existe");
+                    }else {
+
+                        String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
+                        miStatement.executeUpdate(instruccionSQL);
+                    }
                 }catch(Exception ex) {
                     System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
