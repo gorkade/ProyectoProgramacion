@@ -140,9 +140,10 @@ public class DatosReserva extends VentanaPrincipal {
 
                 try {
                     Statement miStatement = ConexionDB.miConexion.createStatement();
-                    String instruccionSQL = "INSERT INTO clientes (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
+                    String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
                     miStatement.executeUpdate(instruccionSQL);
                 }catch(Exception ex) {
+                    System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
                 ServiciosExtra serviciosExtra = new ServiciosExtra();
