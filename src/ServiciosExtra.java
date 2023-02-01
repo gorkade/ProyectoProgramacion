@@ -78,7 +78,7 @@ public class ServiciosExtra extends DatosReserva{
         cajaFuerte.setBounds(10, 150, 230, 30);
 
         labelOfertasDispo.setBounds(10, 180, 230, 30);
-        labelServiciosExtra.setText("Ofertas Disponibles : ");
+        labelOfertasDispo.setText("Ofertas Disponibles : ");
         descuentoFamiliaN.setBounds(10,210, 330, 30);
 
 
