@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ServiciosExtra extends DatosReserva{
+public class ServiciosExtra extends DatosReserva {
     private JPanel miPanel;//contenedor de los componentes
 
     private JMenuBar barraMenu;
@@ -113,6 +113,14 @@ public class ServiciosExtra extends DatosReserva{
         add(miPanel);
 
         enviar.setVisible(true);
+
+        enviar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                InformacionPago infoPago= new InformacionPago();
+            }
+        });
     }
 
 }

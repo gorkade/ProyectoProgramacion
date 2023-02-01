@@ -34,6 +34,7 @@ public class DatosReserva extends VentanaPrincipal {
         setResizable(true);
     }
 
+    //Metodo que genera los componentes de la ventana
     private void iniciarComponentes() {
 
         /**/
@@ -129,6 +130,8 @@ public class DatosReserva extends VentanaPrincipal {
         enviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //Recogemos el texto de los JTextFields
                 String nombre = Nombre.getText();
                 String apellidos = Apellidos.getText();
                 String nif = NIF.getText();
@@ -140,12 +143,14 @@ public class DatosReserva extends VentanaPrincipal {
                 String pais = comboPais.getSelectedItem().toString();
 
                 try {
+                    //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
                     Statement miStatement = ConexionDB.miConexion.createStatement();
                     ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI = '"+nif+"'");
                     if(miResultSet.next()){
                         JOptionPane.showMessageDialog(null, "El cliente ya existe");
                     }else {
 
+                        //Intrucccion para añadir el cliente a la base de datos
                         String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
                         miStatement.executeUpdate(instruccionSQL);
                     }

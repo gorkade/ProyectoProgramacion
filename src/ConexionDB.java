@@ -3,13 +3,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+//Clase para conectar a la base de datos
 public class ConexionDB {
+
+
     static Connection miConexion = null;
 
     public ConexionDB(Connection miConexion) {
         ConexionDB.miConexion = miConexion;
     }
 
+    //Método que realiza la conexion
     public static void ConectarDB(){
         try {
 
