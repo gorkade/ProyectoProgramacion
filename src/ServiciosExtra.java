@@ -118,6 +118,7 @@ public class ServiciosExtra extends DatosReserva {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 InformacionPago infoPago= new InformacionPago();
                 infoPago.setVisible(true);
             }
