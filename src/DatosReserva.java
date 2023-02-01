@@ -133,13 +133,14 @@ public class DatosReserva extends VentanaPrincipal {
                 String nif = NIF.getText();
                 String direccion = Direccion.getText();
                 String telefono = Telefono.getText();
+                String email = Email.getText();
                 String ciudad = Ciudad.getText();
                 String cp = CP.getText();
                 String pais = comboPais.getSelectedItem().toString();
 
                 try {
                     Statement miStatement = ConexionDB.miConexion.createStatement();
-                    String instruccionSQL = "INSERT INTO clientes (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nombre+"','"+apellidos+"','"+nif+"','"+direccion+"','"+telefono+"','"+ciudad+"','"+cp+"','"+pais+"')";
+                    String instruccionSQL = "INSERT INTO clientes (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
                     miStatement.executeUpdate(instruccionSQL);
                 }catch(Exception ex) {
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
