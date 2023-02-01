@@ -37,6 +37,7 @@ public class InformacionPago extends JFrame {
         MenuDatosClientes= new JMenuItem("Datos Clientes");
         BarraMenu.add(MenuDatosClientes);
 
+        setJMenuBar(BarraMenu);
 
 
 

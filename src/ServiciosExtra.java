@@ -79,10 +79,10 @@ public class ServiciosExtra extends DatosReserva {
 
         labelOfertasDispo.setBounds(10, 180, 230, 30);
         labelOfertasDispo.setText("Ofertas Disponibles : ");
-        descuentoFamiliaN.setBounds(10,210, 330, 30);
+        descuentoFamiliaN.setBounds(10,210, 370, 30);
 
 
-        enviar.setBounds(300, 310, 100, 30);
+        enviar.setBounds(300, 235, 100, 30);
 
         /*Agrega los Menus de la barra de Menu*/
         menuReserva.setText("Reserva de Habitaciones");

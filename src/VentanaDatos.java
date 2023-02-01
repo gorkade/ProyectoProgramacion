@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class VentanaDatos extends JFrame implements ActionListener {
     private JPanel miPanel;//contenedor de los componentes
@@ -12,7 +14,7 @@ public class VentanaDatos extends JFrame implements ActionListener {
     private JComboBox comboTipoPersona;
 
     String[] tiposPersonas = {"Seleccionar Tipo...", "Cliente", "Empleado"};
-    private JLabel titulo, labelTipoPersona, labelDNI, labelDatos;
+    private JLabel titulo, labelTipoPersona, labelDNI, labelDatos, labelDatos2;
     private JTextField dni;
 
     private Button consultar;
@@ -50,6 +52,8 @@ public class VentanaDatos extends JFrame implements ActionListener {
         dni = new JTextField();
         labelDNI = new JLabel();
         labelDatos = new JLabel();
+        labelDatos2 = new JLabel();
+
 
         consultar = new Button("Consultar");
 
@@ -67,7 +71,10 @@ public class VentanaDatos extends JFrame implements ActionListener {
 
         dni.setBounds(160,50,130,20);
 
-        labelDatos.setBounds(300,70,650,30);
+        labelDatos.setBounds(10,70,650,100);
+        labelDatos2.setBounds(10,90,650,100);
+
+
 
         consultar.setBounds(300, 200, 100, 30);
 
@@ -93,6 +100,7 @@ public class VentanaDatos extends JFrame implements ActionListener {
         miPanel.add(dni);
         miPanel.add(labelDNI);
         miPanel.add(labelDatos);
+        miPanel.add(labelDatos2);
         miPanel.add(consultar);
         add(miPanel);
 
@@ -103,6 +111,42 @@ public class VentanaDatos extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == consultar) {
             labelDatos.setText("Datos: ");
+            Statement miStatement = null;
+            String DNI = (String) dni.getText();
+
+            if (comboTipoPersona.getSelectedItem().equals("Empleado")) {
+
+                   try {
+                       miStatement = ConexionDB.miConexion.createStatement();
+                       ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Empleado where DNI like '" + DNI + "'");
+                       while (miResultSet.next()) {
+                           labelDatos.setText("NumEpleado: " + miResultSet.getString("NumEmpleado") + " Nombre: " + miResultSet.getString("Nombre") + " Aplleidos: " + miResultSet.getString("Apellido") +
+                                   " Zona: " + miResultSet.getString("Zona") + " Tipo: " + miResultSet.getString("TipoEmpleado") );
+
+                           labelDatos2.setText("Salario: " + miResultSet.getString("Salario")  );
+
+                       }
+                   } catch (SQLException ex) {
+                       throw new RuntimeException(ex);
+                   }
+               }else if (comboTipoPersona.getSelectedItem().equals("Cliente")) {
+                try {
+                    miStatement = ConexionDB.miConexion.createStatement();
+                    ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI like '"+DNI+"'");
+                    while (miResultSet.next()) {
+                        labelDatos.setText("Nombre: " + miResultSet.getString("Nombre") + " Aplleidos: " + miResultSet.getString("Apellido") +
+                                 " Telefono: " + miResultSet.getString("Telf") + " Email: " + miResultSet.getString("Email") );
+
+                        labelDatos2.setText("Dirección: " + miResultSet.getString("Direccion") + " Pais: " + miResultSet.getString("Pais") +
+                                " Ciudad: " + miResultSet.getString("Ciudad") + " CP: " + miResultSet.getString("CP") );
+
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+
             labelDatos.setVisible(true);
         }
 
