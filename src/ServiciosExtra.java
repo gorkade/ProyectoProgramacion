@@ -33,8 +33,8 @@ public class ServiciosExtra extends DatosReserva {
         setSize(700,330);
         //pone la ventana en el Centro de la pantalla
         setLocationRelativeTo(null);
-        /*impide que la ventana cambie de tamaño*/
-        setResizable(false);
+        /*Hacemos que la ventana cambie de tamaño*/
+        setResizable(true);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -119,6 +119,7 @@ public class ServiciosExtra extends DatosReserva {
             public void actionPerformed(ActionEvent e) {
 
                 InformacionPago infoPago= new InformacionPago();
+                infoPago.setVisible(true);
             }
         });
     }

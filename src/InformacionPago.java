@@ -28,13 +28,13 @@ public class InformacionPago extends JFrame {
         //Menu superior de la ventana
         BarraMenu= new JMenuBar();
 
-        MenuReserva= new JMenuItem();
+        MenuReserva= new JMenuItem("Reserva");
         BarraMenu.add(MenuReserva);
 
-        MenuHorariosTrabajador= new JMenuItem();
+        MenuHorariosTrabajador= new JMenuItem("Consultar Horarios Trabajador");
         BarraMenu.add(MenuHorariosTrabajador);
 
-        MenuDatosClientes= new JMenuItem();
+        MenuDatosClientes= new JMenuItem("Datos Clientes");
         BarraMenu.add(MenuDatosClientes);
 
 

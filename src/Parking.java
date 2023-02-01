@@ -25,16 +25,14 @@ public class Parking extends JFrame {
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 
-
         parkingSpaces = new JButton[numberOfSpaces];
         parkingSpaceAvailability = new boolean[numberOfSpaces];
-
 
 
         for (int i = 0; i < numberOfSpaces; i++) {
 
             parkingSpaces[i] = new JButton(String.valueOf(i + 1));
-            if(i==0||i==1||i==2||i==3){
+            if (i == 0 || i == 1 || i == 2 || i == 3) {
                 parkingSpaces[i].setIcon(icon);
 
             }
@@ -46,7 +44,7 @@ public class Parking extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
-                    int spaceNumber = Integer.parseInt(button.getText())-1;
+                    int spaceNumber = Integer.parseInt(button.getText()) - 1;
 
                     if (parkingSpaceAvailability[spaceNumber]) {
                         button.setBackground(Color.RED);
@@ -69,16 +67,16 @@ public class Parking extends JFrame {
         //todo boton disponible
         JButton disponible = new JButton();
         disponible.setBackground(Color.green);
-        disponible.setPreferredSize(new Dimension(20,20));
+        disponible.setPreferredSize(new Dimension(20, 20));
         //todo boton no disponible
         JButton noDisponible = new JButton();
         noDisponible.setBackground(Color.red);
-        noDisponible.setPreferredSize(new Dimension(20,20));
+        noDisponible.setPreferredSize(new Dimension(20, 20));
         //todo boton plaza minusvalido
         JButton plazaMinus = new JButton();
 
         plazaMinus.setIcon(icon);
-        plazaMinus.setPreferredSize(new Dimension(20,20));
+        plazaMinus.setPreferredSize(new Dimension(20, 20));
         //todo boton plaza Seleccionado
         JButton seleccionado = new JButton();
         //todo boton aceptar
@@ -105,10 +103,6 @@ public class Parking extends JFrame {
 // Add the new JPanel to the bottom of the main JPanel
         panel.add(botonesinferiores, BorderLayout.SOUTH);
         add(panel);
-
-
-
-
 
 
         setSize(700, 400);
