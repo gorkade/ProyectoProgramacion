@@ -145,7 +145,7 @@ public class DatosReserva extends VentanaPrincipal {
                 try {
                     //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
                     Statement miStatement = ConexionDB.miConexion.createStatement();
-                    ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI = '"+nif+"'");
+                    ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI like '"+nif+"'");
                     if(miResultSet.next()){
                         JOptionPane.showMessageDialog(null, "El cliente ya existe");
                     }else {
