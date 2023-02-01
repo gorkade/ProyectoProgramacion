@@ -6,6 +6,9 @@ import java.sql.Statement;
 public class ConexionDB {
     static Connection miConexion = null;
 
+    public ConexionDB(Connection miConexion) {
+        ConexionDB.miConexion = miConexion;
+    }
 
     public static void ConectarDB(){
         try {
