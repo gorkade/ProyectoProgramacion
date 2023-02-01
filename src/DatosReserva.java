@@ -98,7 +98,7 @@ public class DatosReserva extends VentanaPrincipal {
 
         labelEmail.setBounds(185,140,100,30);
         labelEmail.setText("Email : ");
-        Email.setBounds(200,145, 100, 20);
+        Email.setBounds(200,160, 350, 20);
 //
         labelCiudad.setBounds(10,175,130,30);
         labelCiudad.setText("Ciudad : ");
