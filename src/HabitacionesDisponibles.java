@@ -116,8 +116,12 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
                         DatosReserva datosReserva = new DatosReserva();
                         datosReserva.setVisible(true);
                     }else{
-                        SeleccionarParking seleccionarParking = new SeleccionarParking();
-                        seleccionarParking.setVisible(true);
+                        /*SeleccionarParking seleccionarParking = new SeleccionarParking();
+                        seleccionarParking.setVisible(true);*/
+
+                        Parking SeleccionarParking= new Parking(9);
+
+                        SeleccionarParking.setVisible(true);
                     }
                 }
             }
