@@ -105,7 +105,8 @@ public class Parking extends JFrame {
         add(panel);
 
 
-        setSize(700, 400);
+        //tamaño de la ventana
+        setSize(700,330);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }

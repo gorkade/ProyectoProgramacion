@@ -110,43 +110,45 @@ public class VentanaDatos extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == consultar) {
-            labelDatos.setText("Datos: ");
             Statement miStatement = null;
-            String DNI = (String) dni.getText();
+            String DNI =  dni.getText();
 
             if (comboTipoPersona.getSelectedItem().equals("Empleado")) {
-
                    try {
-                       miStatement = ConexionDB.miConexion.createStatement();
+                        miStatement = ConexionDB.miConexion.createStatement();
                        ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Empleado where DNI like '" + DNI + "'");
-                       while (miResultSet.next()) {
-                           labelDatos.setText("NumEpleado: " + miResultSet.getString("NumEmpleado") + " Nombre: " + miResultSet.getString("Nombre") + " Aplleidos: " + miResultSet.getString("Apellido") +
+                       if (miResultSet.next()) {
+                           labelDatos.setText("Datos: ");
+                           labelDatos.setText("NumEpleado: " + miResultSet.getString("NumEmpleado") +
+                                   " Nombre: " + miResultSet.getString("Nombre") + " Aplleidos: " + miResultSet.getString("Apellido") +
                                    " Zona: " + miResultSet.getString("Zona") + " Tipo: " + miResultSet.getString("TipoEmpleado") );
 
                            labelDatos2.setText("Salario: " + miResultSet.getString("Salario")  );
 
+                       }else{
+                           JOptionPane.showMessageDialog(null,"No se ha encontrado el Empleado");
                        }
                    } catch (SQLException ex) {
-                       throw new RuntimeException(ex);
+                       JOptionPane.showMessageDialog(null,"Error al buscar los datos");
                    }
                }else if (comboTipoPersona.getSelectedItem().equals("Cliente")) {
                 try {
                     miStatement = ConexionDB.miConexion.createStatement();
                     ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI like '"+DNI+"'");
-                    while (miResultSet.next()) {
+                    if(miResultSet.next()) {
+                        labelDatos.setText("Datos: ");
                         labelDatos.setText("Nombre: " + miResultSet.getString("Nombre") + " Aplleidos: " + miResultSet.getString("Apellido") +
                                  " Telefono: " + miResultSet.getString("Telf") + " Email: " + miResultSet.getString("Email") );
 
                         labelDatos2.setText("Dirección: " + miResultSet.getString("Direccion") + " Pais: " + miResultSet.getString("Pais") +
                                 " Ciudad: " + miResultSet.getString("Ciudad") + " CP: " + miResultSet.getString("CP") );
-
+                    }else{
+                        JOptionPane.showMessageDialog(null,"No se ha encontrado el cliente");
                     }
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(null,"Error al buscar los datos");
                 }
             }
-
-
             labelDatos.setVisible(true);
         }
 
