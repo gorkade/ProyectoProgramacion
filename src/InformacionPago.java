@@ -65,21 +65,22 @@ public class InformacionPago extends JFrame {
 
         NombreTitularTarj.setBounds(0, 40, 250, 40);
         NombreTitularTarj.setText("Nombre Titular de la Tarjeta: ");
-        NombreTitularTarjetaa.setBounds(0, 60, 250, 40);
+        NombreTitularTarjetaa.setBounds(0, 70, 250, 40);
 
-        NumTarjeta.setBounds(60, 40, 250, 40);
+        NumTarjeta.setBounds(0, 110, 250, 40);
         NumTarjeta.setText("Numero de la Tarjeta");
-        NumTarjetaa.setBounds(60, 60, 250, 40);
+        NumTarjetaa.setBounds(0, 140, 250, 40);
 
-        FechaCaducidadTarjeta.setBounds(110,40, 100, 40);
+        FechaCaducidadTarjeta.setBounds(300,40, 170, 40);
         FechaCaducidadTarjeta.setText("Fecha Caducidad");
-        FechaCaducidadTarjetaa.setBounds(110, 60, 100, 40);
+        FechaCaducidadTarjetaa.setBounds(290, 70, 170, 40);
 
-        CVV.setBounds(160, 40, 100, 40);
+        CVV.setBounds(530, 40, 100, 40);
         CVV.setText("CVV:");
-        CVVV.setBounds(160,60,50,40);
+        CVVV.setBounds(530,70,50,40);
 
-        enviar.setBounds(160, 90, 50, 40);
+        enviar.setBounds(530, 220, 170, 40);
+        enviar.setText("Enviar");
 
         miPanel.add(InfoPago);
         miPanel.add(NombreTitularTarj);
