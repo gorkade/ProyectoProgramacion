@@ -1,4 +1,8 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class InformacionPago extends JFrame {
 
@@ -7,11 +11,11 @@ public class InformacionPago extends JFrame {
     private JMenuBar BarraMenu;
     private JMenuItem MenuReserva, MenuHorariosTrabajador,MenuDatosClientes;
 
-    private JLabel InfoPago, NombreTitularTarj, NumTarjeta, FechaCaducidadTarjeta, CVV;
+    private JLabel InfoPago, NombreTitularTarj, NumTarjeta, FechaCaducidadTarjeta, CVV, DNII;
 
     private JButton enviar;
 
-    public InformacionPago(){
+    public void InformacionPago(){
 
         IniciarComponentes();
         //Asigna un titulo a la barra de titulo
@@ -57,27 +61,34 @@ public class InformacionPago extends JFrame {
         CVV = new JLabel();
         JTextField CVVV = new JTextField();
 
+        DNII = new JLabel();
+        JTextField DNIT = new JTextField();
+
         enviar = new JButton();
 
 
-        InfoPago.setBounds(0, 10, 150, 40);
+        InfoPago.setBounds(10, 10, 150, 40);
         InfoPago.setText("Información del Pago:");
 
-        NombreTitularTarj.setBounds(0, 40, 250, 40);
+        NombreTitularTarj.setBounds(10, 40, 250, 40);
         NombreTitularTarj.setText("Nombre Titular de la Tarjeta: ");
-        NombreTitularTarjetaa.setBounds(0, 70, 250, 40);
+        NombreTitularTarjetaa.setBounds(10, 70, 250, 40);
 
-        NumTarjeta.setBounds(0, 110, 250, 40);
+        DNII.setBounds(10, 110,250, 40);
+        DNII.setText("DNI: ");
+        DNIT.setBounds(50, 110, 150, 40);
+
+        NumTarjeta.setBounds(10, 145, 250, 40);
         NumTarjeta.setText("Numero de la Tarjeta");
-        NumTarjetaa.setBounds(0, 140, 250, 40);
+        NumTarjetaa.setBounds(10, 175, 250, 40);
 
         FechaCaducidadTarjeta.setBounds(300,40, 170, 40);
         FechaCaducidadTarjeta.setText("Fecha Caducidad");
-        FechaCaducidadTarjetaa.setBounds(290, 70, 170, 40);
+        FechaCaducidadTarjetaa.setBounds(295, 70, 170, 40);
 
         CVV.setBounds(530, 40, 100, 40);
         CVV.setText("CVV:");
-        CVVV.setBounds(530,70,50,40);
+        CVVV.setBounds(525,70,50,40);
 
         enviar.setBounds(530, 220, 170, 40);
         enviar.setText("Enviar");
@@ -85,6 +96,8 @@ public class InformacionPago extends JFrame {
         miPanel.add(InfoPago);
         miPanel.add(NombreTitularTarj);
         miPanel.add(NombreTitularTarjetaa);
+        miPanel.add(DNII);
+        miPanel.add(DNIT);
         miPanel.add(NumTarjeta);
         miPanel.add(NumTarjetaa);
         miPanel.add(FechaCaducidadTarjeta);
@@ -95,7 +108,50 @@ public class InformacionPago extends JFrame {
         add(miPanel);
 
         enviar.setVisible(true);
+        enviar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == enviar) {
+                    //Recogemos el texto de los JTextFields
+                    String NombreTitular = NombreTitularTarjetaa.getText();
+                    String DNI = DNIT.getText();
+                    String NumeroTarjeta = NumTarjetaa.getText();
+                    String FechaCaducidadd = FechaCaducidadTarjetaa.getText();
+                    String CVVP = CVVV.getText();
 
+
+                    if (NombreTitular != null && DNI != null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP != null){
+                        try {
+                            //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
+                            Statement miStatement = ConexionDB.miConexion.createStatement();
+                            String instruccionSQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
+                            miStatement.executeUpdate(instruccionSQL);
+
+                        }catch(Exception ex) {
+                            System.out.println(ex);
+                            JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
+                        }
+                    } else if (NombreTitular != null && DNI != null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP == null){
+                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el CVV!!");
+                         InformacionPago();
+                    } else if (NombreTitular != null && DNI != null && NumeroTarjeta != null && FechaCaducidadd == null && CVVP != null) {
+                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido la Fecha de Caducidad!!");
+                        InformacionPago();
+                    } else if (NombreTitular != null && DNI != null && NumeroTarjeta == null && FechaCaducidadd != null && CVVP != null) {
+                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el Numero de la Targeta!!");
+                        InformacionPago();
+                    } else if (NombreTitular != null && DNI == null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP != null) {
+                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el DNI!!");
+                        InformacionPago();
+                    } else if (NombreTitular == null && DNI != null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP != null) {
+                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el Nombre del Titular!!");
+                        InformacionPago();
+                    }
+
+
+                }
+            }
+        });
 
     }
 
