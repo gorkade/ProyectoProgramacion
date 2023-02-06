@@ -15,7 +15,7 @@ public class InformacionPago extends JFrame {
 
     private JButton enviar;
 
-    public void InformacionPago(){
+    public InformacionPago(){
 
         IniciarComponentes();
         //Asigna un titulo a la barra de titulo
@@ -120,7 +120,6 @@ public class InformacionPago extends JFrame {
                     String CVVP = CVVV.getText();
 
 
-                    if (NombreTitular != null && DNI != null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP != null){
                         try {
                             //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
                             Statement miStatement = ConexionDB.miConexion.createStatement();
@@ -131,22 +130,6 @@ public class InformacionPago extends JFrame {
                             System.out.println(ex);
                             JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                         }
-                    } else if (NombreTitular != null && DNI != null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP == null){
-                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el CVV!!");
-                         InformacionPago();
-                    } else if (NombreTitular != null && DNI != null && NumeroTarjeta != null && FechaCaducidadd == null && CVVP != null) {
-                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido la Fecha de Caducidad!!");
-                        InformacionPago();
-                    } else if (NombreTitular != null && DNI != null && NumeroTarjeta == null && FechaCaducidadd != null && CVVP != null) {
-                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el Numero de la Targeta!!");
-                        InformacionPago();
-                    } else if (NombreTitular != null && DNI == null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP != null) {
-                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el DNI!!");
-                        InformacionPago();
-                    } else if (NombreTitular == null && DNI != null && NumeroTarjeta != null && FechaCaducidadd != null && CVVP != null) {
-                        JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos!\nNo has introducido el Nombre del Titular!!");
-                        InformacionPago();
-                    }
 
 
                 }
