@@ -1,17 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
+//import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class InformacionPago extends JFrame {
-
-    private JPanel miPanel = new JPanel();
-
-    private JMenuBar BarraMenu;
-    private JMenuItem MenuReserva, MenuHorariosTrabajador,MenuDatosClientes;
-
-    private JLabel InfoPago, NombreTitularTarj, NumTarjeta, FechaCaducidadTarjeta, CVV, DNII;
 
     private JButton enviar;
 
@@ -34,56 +27,56 @@ public class InformacionPago extends JFrame {
 
     public void IniciarComponentes(){
 
-        miPanel = new JPanel();
+        JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
 
         //Menu superior de la ventana
-        BarraMenu= new JMenuBar();
+        JMenuBar barraMenu = new JMenuBar();
 
-        MenuReserva= new JMenuItem("Reserva");
-        BarraMenu.add(MenuReserva);
+        JMenuItem menuReserva = new JMenuItem("Reserva");
+        barraMenu.add(menuReserva);
 
-        MenuHorariosTrabajador= new JMenuItem("Consultar Horarios Trabajador");
-        BarraMenu.add(MenuHorariosTrabajador);
+        JMenuItem menuHorariosTrabajador = new JMenuItem("Consultar Horarios Trabajador");
+        barraMenu.add(menuHorariosTrabajador);
 
-        MenuDatosClientes= new JMenuItem("Datos Clientes");
-        BarraMenu.add(MenuDatosClientes);
+        JMenuItem menuDatosClientes = new JMenuItem("Datos Clientes");
+        barraMenu.add(menuDatosClientes);
 
-        setJMenuBar(BarraMenu);
+        setJMenuBar(barraMenu);
 
-        InfoPago = new JLabel();
-        NombreTitularTarj = new JLabel();
+        JLabel infoPago = new JLabel();
+        JLabel nombreTitularTarj = new JLabel();
         JTextField NombreTitularTarjetaa = new JTextField ();
-        NumTarjeta = new JLabel();
+        JLabel numTarjeta = new JLabel();
         JTextField NumTarjetaa = new JTextField();
-        FechaCaducidadTarjeta = new JLabel();
+        JLabel fechaCaducidadTarjeta = new JLabel();
         JTextField FechaCaducidadTarjetaa = new JTextField();
-        CVV = new JLabel();
+        JLabel CVV = new JLabel();
         JTextField CVVV = new JTextField();
 
-        DNII = new JLabel();
+        JLabel DNII = new JLabel();
         JTextField DNIT = new JTextField();
 
         enviar = new JButton();
 
 
-        InfoPago.setBounds(10, 10, 150, 40);
-        InfoPago.setText("Información del Pago:");
+        infoPago.setBounds(10, 10, 150, 40);
+        infoPago.setText("Información del Pago:");
 
-        NombreTitularTarj.setBounds(10, 40, 250, 40);
-        NombreTitularTarj.setText("Nombre Titular de la Tarjeta: ");
+        nombreTitularTarj.setBounds(10, 40, 250, 40);
+        nombreTitularTarj.setText("Nombre Titular de la Tarjeta: ");
         NombreTitularTarjetaa.setBounds(10, 70, 250, 40);
 
         DNII.setBounds(10, 110,250, 40);
         DNII.setText("DNI: ");
         DNIT.setBounds(50, 110, 150, 40);
 
-        NumTarjeta.setBounds(10, 145, 250, 40);
-        NumTarjeta.setText("Numero de la Tarjeta");
+        numTarjeta.setBounds(10, 145, 250, 40);
+        numTarjeta.setText("Numero de la Tarjeta");
         NumTarjetaa.setBounds(10, 175, 250, 40);
 
-        FechaCaducidadTarjeta.setBounds(300,40, 170, 40);
-        FechaCaducidadTarjeta.setText("Fecha Caducidad");
+        fechaCaducidadTarjeta.setBounds(300,40, 170, 40);
+        fechaCaducidadTarjeta.setText("Fecha Caducidad");
         FechaCaducidadTarjetaa.setBounds(295, 70, 170, 40);
 
         CVV.setBounds(530, 40, 100, 40);
@@ -93,14 +86,14 @@ public class InformacionPago extends JFrame {
         enviar.setBounds(530, 220, 170, 40);
         enviar.setText("Enviar");
 
-        miPanel.add(InfoPago);
-        miPanel.add(NombreTitularTarj);
+        miPanel.add(infoPago);
+        miPanel.add(nombreTitularTarj);
         miPanel.add(NombreTitularTarjetaa);
         miPanel.add(DNII);
         miPanel.add(DNIT);
-        miPanel.add(NumTarjeta);
+        miPanel.add(numTarjeta);
         miPanel.add(NumTarjetaa);
-        miPanel.add(FechaCaducidadTarjeta);
+        miPanel.add(fechaCaducidadTarjeta);
         miPanel.add(FechaCaducidadTarjetaa);
         miPanel.add(CVV);
         miPanel.add(CVVV);
@@ -108,31 +101,28 @@ public class InformacionPago extends JFrame {
         add(miPanel);
 
         enviar.setVisible(true);
-        enviar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == enviar) {
-                    //Recogemos el texto de los JTextFields
-                    String NombreTitular = NombreTitularTarjetaa.getText();
-                    String DNI = DNIT.getText();
-                    String NumeroTarjeta = NumTarjetaa.getText();
-                    String FechaCaducidadd = FechaCaducidadTarjetaa.getText();
-                    String CVVP = CVVV.getText();
+        enviar.addActionListener(e -> {
+            if (e.getSource() == enviar) {
+                //Recogemos el texto de los JTextFields
+                String NombreTitular = NombreTitularTarjetaa.getText();
+                String DNI = DNIT.getText();
+                String NumeroTarjeta = NumTarjetaa.getText();
+                String FechaCaducidadd = FechaCaducidadTarjetaa.getText();
+                String CVVP = CVVV.getText();
 
 
-                        try {
-                            //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
-                            Statement miStatement = ConexionDB.miConexion.createStatement();
-                            String instruccionSQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
-                            miStatement.executeUpdate(instruccionSQL);
+                try {
+                    //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
+                    Statement miStatement = ConexionDB.miConexion.createStatement();
+                    String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
+                    miStatement.executeUpdate(SQL);
 
-                        }catch(Exception ex) {
-                            System.out.println(ex);
-                            JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
-                        }
-
-
+                }catch(Exception ex) {
+                    System.out.println(ex);
+                    JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
+
+
             }
         });
 
