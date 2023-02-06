@@ -7,12 +7,10 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
-    private JPanel miPanel;//contenedor de los componentes
 
-    private JMenuBar barraMenu;
-    private JMenuItem menuReserva, menuHorarios,menuDatos;
+    private JMenuItem menuHorarios;
+    private JMenuItem menuDatos;
 
-    private JScrollBar scrollBar;
     private JSpinner numCamas;
     /*items del menu Tipo*/
     String[] tiposHabitacion = {null , "Sencilla", "Doble", "Matrimonial", "Suite"};
@@ -22,8 +20,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
     private JDateChooser calendarioLlegada;
     private JDateChooser calendarioSalida;
 
-    /*labels de los menus para mostrar en pantalla*/
-    private JLabel titulo, labelTipo, labelNumCamas, labelLlegada, labelSalida, labelTipoParking;
+    private JLabel labelTipoParking;
 
     private JCheckBox reservaParking;
 
@@ -49,14 +46,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         /**/
 
         /*Inicia instancias de los componentes*/
-        miPanel = new JPanel();
+        //contenedor de los componentes
+        JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
-        menuReserva = new JMenuItem("Reserva");
+        JMenuItem menuReserva = new JMenuItem("Reserva");
         menuHorarios = new JMenuItem("Horarios");
         menuDatos = new JMenuItem("Datos");
-        barraMenu = new JMenuBar();
+        JMenuBar barraMenu = new JMenuBar();
         comboTipo = new JComboBox(tiposHabitacion);
-        scrollBar = new JScrollBar();
+        JScrollBar scrollBar = new JScrollBar();
 
         calendarioLlegada= new JDateChooser();
         calendarioLlegada.setMinSelectableDate(new java.util.Date());
@@ -67,12 +65,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
         numCamas = new JSpinner();
 
-        titulo = new JLabel();
-        labelTipo = new JLabel();
-        labelNumCamas = new JLabel();
+        /*labels de los menus para mostrar en pantalla*/
+        JLabel titulo = new JLabel();
+        JLabel labelTipo = new JLabel();
+        JLabel labelNumCamas = new JLabel();
 
-        labelLlegada =new JLabel();
-        labelSalida =new JLabel();
+        JLabel labelLlegada = new JLabel();
+        JLabel labelSalida = new JLabel();
 
         labelTipoParking =new JLabel();
 
