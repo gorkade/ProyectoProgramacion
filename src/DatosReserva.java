@@ -149,13 +149,15 @@ public class DatosReserva extends VentanaPrincipal {
                         //Intrucccion para añadir el cliente a la base de datos
                         String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
                         miStatement.executeUpdate(instruccionSQL);
+                        JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
+                        ServiciosExtra serviciosExtra = new ServiciosExtra();
+                        serviciosExtra.setVisible(true);
                     }
                 }catch(Exception ex) {
                     System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
-                ServiciosExtra serviciosExtra = new ServiciosExtra();
-                serviciosExtra.setVisible(true);
+
                 dispose();
             }
 
