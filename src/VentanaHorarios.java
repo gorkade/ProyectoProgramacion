@@ -5,10 +5,11 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class VentanaHorarios extends JFrame implements ActionListener{
-    private JPanel miPanel;//contenedor de los componentes
-    private JMenuBar barraMenu;
-    private JMenuItem menuReserva, menuHorarios,menuDatos;
-    private JLabel titulo, labelDNI, labelHorario, labelZona;
+    private JMenuItem menuReserva;
+    private JMenuItem menuDatos;
+    private JMenuItem menuHorarios;
+    private JLabel labelHorario;
+    private JLabel labelZona;
     private JTextField dni;
 
     private Button consultar;
@@ -32,15 +33,16 @@ public class VentanaHorarios extends JFrame implements ActionListener{
         /**/
 
         /*Inicia instancias de los componentes*/
-        miPanel = new JPanel();
+        //contenedor de los componentes
+        JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
         menuReserva = new JMenuItem("Reserva");
         menuHorarios = new JMenuItem("Horarios");
         menuDatos = new JMenuItem("Datos");
-        barraMenu = new JMenuBar();
+        JMenuBar barraMenu = new JMenuBar();
 
-        titulo = new JLabel();
-        labelDNI = new JLabel();
+        JLabel titulo = new JLabel();
+        JLabel labelDNI = new JLabel();
         dni = new JTextField();
         labelHorario = new JLabel();
 
@@ -68,7 +70,7 @@ public class VentanaHorarios extends JFrame implements ActionListener{
         /*Agrega los Menus de la barra de Menu*/
         menuReserva.setText("Reserva de habitaciones");
         barraMenu.add(menuReserva);
-
+        
         menuHorarios.setText("Consultar Horarios Trabajador");
         barraMenu.add(menuHorarios);
 
