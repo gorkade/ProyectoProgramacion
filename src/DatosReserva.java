@@ -6,15 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatosReserva extends VentanaPrincipal {
-    private JPanel miPanel;//contenedor de los componentes
-    private JMenuBar barraMenu;
-    private JMenu menuReserva, menuHorarios,menuDatos;
 
     /*items del menu Tipo*/
     private JComboBox comboPais;
-    /*labels de los menus para mostrar en pantalla*/
-    private JLabel labelNombre, labelApellidos, labelNIF, labelDireccion, labelTelefono, labelCiudad, labelPais, labelCP, labelEmail;
-    private Button enviar;
 
     String[] pais = {"Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue"};
     public DatosReserva()//constructor
@@ -44,12 +38,13 @@ public class DatosReserva extends VentanaPrincipal {
 
 
         /*Inicia instancias de los componentes*/
-        miPanel = new JPanel();
+        //contenedor de los componentes
+        JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
-        menuReserva = new JMenu("Reserva");
-        menuHorarios = new JMenu("Horarios");
-        menuDatos = new JMenu("Datos");
-        barraMenu = new JMenuBar();
+        JMenu menuReserva = new JMenu("Reserva");
+        JMenu menuHorarios = new JMenu("Horarios");
+        JMenu menuDatos = new JMenu("Datos");
+        JMenuBar barraMenu = new JMenuBar();
         comboPais = new JComboBox(pais);
 
         JTextField Nombre = new JTextField();
@@ -61,19 +56,20 @@ public class DatosReserva extends VentanaPrincipal {
         JTextField CP = new JTextField();
         JTextField Email = new JTextField();
 
-        labelNombre = new JLabel();
-        labelApellidos = new JLabel();
-        labelNIF = new JLabel();
+        /*labels de los menus para mostrar en pantalla*/
+        JLabel labelNombre = new JLabel();
+        JLabel labelApellidos = new JLabel();
+        JLabel labelNIF = new JLabel();
 
-        labelDireccion =new JLabel();
-        labelTelefono =new JLabel();
-        labelEmail =new JLabel();
+        JLabel labelDireccion = new JLabel();
+        JLabel labelTelefono = new JLabel();
+        JLabel labelEmail = new JLabel();
 
-        labelCiudad =new JLabel();
-        labelPais = new JLabel();
-        labelCP = new JLabel();
+        JLabel labelCiudad = new JLabel();
+        JLabel labelPais = new JLabel();
+        JLabel labelCP = new JLabel();
 
-        enviar = new Button("Enviar");
+        Button enviar = new Button("Enviar");
         /*Fin instancias de los componentes*/
 
         /*Labels*/
@@ -153,13 +149,15 @@ public class DatosReserva extends VentanaPrincipal {
                         //Intrucccion para añadir el cliente a la base de datos
                         String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
                         miStatement.executeUpdate(instruccionSQL);
+                        JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
+                        ServiciosExtra serviciosExtra = new ServiciosExtra();
+                        serviciosExtra.setVisible(true);
                     }
                 }catch(Exception ex) {
                     System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
-                ServiciosExtra serviciosExtra = new ServiciosExtra();
-                serviciosExtra.setVisible(true);
+
                 dispose();
             }
 

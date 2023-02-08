@@ -5,11 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class HabitacionesDisponibles extends JFrame implements ActionListener {
-    private JPanel miPanel;
-    private JScrollPane scrollPane;
-    private JMenuBar barraMenu;
-    private JMenuItem menuReserva, menuHorarios,menuDatos;
-    private JLabel titulo;
+    private JMenuItem menuHorarios;
+    private JMenuItem menuDatos;
     private JTextField dni;
     private Button seleccionar;
 
@@ -45,14 +42,14 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
 
         /*Inicia instancias de los componentes*/
-        miPanel = new JPanel();
+        JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
-        menuReserva = new JMenuItem("Reserva");
+        JMenuItem menuReserva = new JMenuItem("Reserva");
         menuHorarios = new JMenuItem("Horarios");
         menuDatos = new JMenuItem("Datos");
-        barraMenu = new JMenuBar();
+        JMenuBar barraMenu = new JMenuBar();
 
-        titulo = new JLabel();
+        JLabel titulo = new JLabel();
 
         seleccionar = new Button("Consultar");
 
@@ -120,24 +117,21 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
         menuDatos.addActionListener(this);
         menuHorarios.addActionListener(this);
-        seleccionar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == seleccionar){
-                    if (tipoParking == null){
-                        DatosReserva datosReserva = new DatosReserva();
-                        datosReserva.setVisible(true);
-                    }else{
-                        Parking seleccionarParking = new Parking(48);
-                        seleccionarParking.setVisible(true);
+        seleccionar.addActionListener(e -> {
+            if(e.getSource() == seleccionar){
+                if (tipoParking == null){
+                    DatosReserva datosReserva = new DatosReserva();
+                    datosReserva.setVisible(true);
+                }else{
+                    Parking seleccionarParking = new Parking(48);
+                    seleccionarParking.setVisible(true);
 
 
-                    }
-               }
-            }
+                }
+           }
         });
 
-        scrollPane = new JScrollPane(miPanel);
+        JScrollPane scrollPane = new JScrollPane(miPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(700,330));
@@ -147,9 +141,9 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==menuHorarios){
-            VentanaHorarios ventanaHorarios = null;
 
-                ventanaHorarios = new VentanaHorarios();
+
+            VentanaHorarios ventanaHorarios = new VentanaHorarios();
 
             ventanaHorarios.setVisible(true);
 

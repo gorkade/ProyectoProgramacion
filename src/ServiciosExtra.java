@@ -6,24 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ServiciosExtra extends DatosReserva {
-    private JPanel miPanel;//contenedor de los componentes
-
-    private JMenuBar barraMenu;
-    private JMenuItem menuReserva, menuHorarios,menuDatos;
-
-    private JScrollBar scrollBar;
-    private JSpinner numCamas;
-    /*items del menu Tipo*/
-
-    private JComboBox comboTipo, comboTipoParking;
-
-    /*labels de los menus para mostrar en pantalla*/
-    private JLabel labelServiciosExtra,  labelOfertasDispo;
-
-    private JCheckBox bar, restaurante, actividades, guarderia, cajaFuerte, descuentoFamiliaN;
-
-    private Button enviar;
-
     public ServiciosExtra()//constructor
     {
         iniciarComponentes();
@@ -44,25 +26,27 @@ public class ServiciosExtra extends DatosReserva {
         /**/
 
         /*Inicia instancias de los componentes*/
-        miPanel = new JPanel();
+        //contenedor de los componentes
+        JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
-        menuReserva = new JMenuItem("Reserva");
-        menuHorarios = new JMenuItem("Horarios");
-        menuDatos = new JMenuItem("Datos");
-        barraMenu = new JMenuBar();
-        scrollBar = new JScrollBar();
+        JMenuItem menuReserva = new JMenuItem("Reserva");
+        JMenuItem menuHorarios = new JMenuItem("Horarios");
+        JMenuItem menuDatos = new JMenuItem("Datos");
+        JMenuBar barraMenu = new JMenuBar();
+        JScrollBar scrollBar = new JScrollBar();
 
-        labelServiciosExtra = new JLabel();
-        bar = new JCheckBox("Bar (+10€)");
-        restaurante = new JCheckBox("Restaurante (+30€)");
-        actividades = new JCheckBox("Acceso a actividades (+40€)");
-        guarderia = new JCheckBox("Guarderia (+40€)");
-        cajaFuerte = new JCheckBox("Caja Fuerte (+5€)");
-        labelOfertasDispo = new JLabel();
-        descuentoFamiliaN = new JCheckBox("Descuento Familia Numerosa (10%, Presentar carné en recepción)");
+        /*labels de los menus para mostrar en pantalla*/
+        JLabel labelServiciosExtra = new JLabel();
+        JCheckBox bar = new JCheckBox("Bar (+10€)");
+        JCheckBox restaurante = new JCheckBox("Restaurante (+30€)");
+        JCheckBox actividades = new JCheckBox("Acceso a actividades (+40€)");
+        JCheckBox guarderia = new JCheckBox("Guarderia (+40€)");
+        JCheckBox cajaFuerte = new JCheckBox("Caja Fuerte (+5€)");
+        JLabel labelOfertasDispo = new JLabel();
+        JCheckBox descuentoFamiliaN = new JCheckBox("Descuento Familia Numerosa (10%, Presentar carné en recepción)");
 
 
-        enviar = new Button("Enviar");
+        Button enviar = new Button("Enviar");
 
 
         /*Fin instancias de los componentes*/
