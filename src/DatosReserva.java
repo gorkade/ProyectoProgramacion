@@ -147,7 +147,7 @@ public class DatosReserva extends VentanaPrincipal {
                     }else {
 
                         //Intrucccion para añadir el cliente a la base de datos
-                        String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
+                        String instruccionSQL = "INSERT INTO Cliente (DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')create table Cliente(    DNI       int null,    Nombre    int null,    Apellido  int null,    Telf      int null,    Email     int null,    Direccion int null,    Pais      int null,    Ciudad    int null,    CP        int null);";
                         miStatement.executeUpdate(instruccionSQL);
                         JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
                         ServiciosExtra serviciosExtra = new ServiciosExtra();
