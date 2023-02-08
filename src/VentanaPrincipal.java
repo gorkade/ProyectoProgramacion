@@ -93,6 +93,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         labelNumCamas.setText("Número de Camas: ");
 
         numCamas.setBounds(135,42,150,20);
+        numCamas.setValue(1);
 
         labelLlegada.setBounds(10,95,100,50);
         labelLlegada.setText("Fecha Llegada : ");
