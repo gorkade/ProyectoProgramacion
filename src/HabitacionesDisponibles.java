@@ -98,7 +98,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
             JLabel labelPrecio= new JLabel("Precio total " + resultado.getDouble("Precio"));
 
-            labelPrecio.setBounds(50,labelPrecio.getY()+20,200,30);
+            labelPrecio.setBounds(50,labelNumBanos.getY()+20,200,30);
 
             miPanel.setPreferredSize(new Dimension(665, labelNumBanos.getY()+50));
             miPanel.add(radioButton1);
@@ -108,7 +108,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
             miPanel.add(labelNumCamas);
             miPanel.add(labelNumBanos);
             miPanel.add(labelPrecio);
-            labelPrecio.setVisible(true);
+
             seleccionar.setBounds(560,labelNumBanos.getY()+10,100,30);
             i++;
         }
