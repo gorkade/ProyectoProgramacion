@@ -1,12 +1,10 @@
-import com.toedter.calendar.JDateChooser;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ServiciosExtra extends DatosReserva {
-    public ServiciosExtra()//constructor
+    public ServiciosExtra(String fechaLlegada, String fechaSalida)//constructor
     {
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
