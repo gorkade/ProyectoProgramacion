@@ -84,7 +84,9 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
             labelDatos.setBounds(50, radioButton1.getY()+30, 200, 30);
 
-            JLabel labelNumHab = new JLabel("Número habitación " + resultado.getInt("numHabitacion"));
+            int numHab=resultado.getInt("numHabitacion");
+
+            JLabel labelNumHab = new JLabel("Número habitación " +numHab );
 
             labelNumHab.setBounds(50, labelDatos.getY()+20, 200, 30);
 
@@ -100,7 +102,9 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
             labelNumBanos.setBounds(50, labelNumCamas.getY()+20, 200, 30);
 
-            JLabel labelPrecio= new JLabel("Precio total " + resultado.getDouble("Precio"));
+            double precioHab= resultado.getDouble("Precio");
+
+            JLabel labelPrecio= new JLabel("Precio total " + precioHab);
 
             labelPrecio.setBounds(50,labelNumBanos.getY()+20,200,30);
 
@@ -118,6 +122,16 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
             Habitacion h = new Habitacion(resultado.getInt("numHabitacion"), resultado.getString("TipoHabitacion"), resultado.getInt("NumCamas"), resultado.getInt("NumBaños"), resultado.getInt("Precio"), resultado.getString("DNIEmpleado"));
             habitaciones.add(h);
             i++;
+
+            radioButton1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+
+                    System.out.println(numHab);
+                    System.out.println(precioHab);
+                }
+            });
         }
 
 
