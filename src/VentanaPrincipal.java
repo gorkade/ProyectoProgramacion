@@ -18,6 +18,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private JComboBox comboTipo, comboTipoParking;
     private JDateChooser calendarioLlegada;
+    public String fechaLlegadaa;
+    public String fechaSalidaa;
     private JDateChooser calendarioSalida;
 
     private JLabel labelTipoParking;
@@ -41,7 +43,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes() {
+    public void iniciarComponentes() {
 
         /**/
 
@@ -189,6 +191,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             String tipoHabitacion = (String) comboTipo.getSelectedItem();
             int numCamasHabitacion = (int) numCamas.getValue();
             String fechaLlegada = calendarioLlegada.getDate().toString();
+            fechaLlegadaa = calendarioLlegada.getDate().toString();
+            fechaSalidaa = calendarioSalida.getDate().toString();
             String fechaSalida = calendarioSalida.getDate().toString();
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
@@ -196,6 +200,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
             try {
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
+                new InformacionPago(null, fechaLlegadaa, fechaLlegadaa, null);
             } catch (SQLException ex) {
 
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");

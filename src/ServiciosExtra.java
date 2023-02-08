@@ -4,8 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ServiciosExtra extends DatosReserva {
-    public ServiciosExtra(String fechaLlegada, String fechaSalida)//constructor
+
+    public String idServicio0;
+    public int idServicio1;
+    public int idServicio2;
+    public int idServicio3;
+    public int idServicio4;
+    public int idServicio5;
+    public ServiciosExtra()//constructor
     {
+        super();
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Reserva");
@@ -19,7 +27,7 @@ public class ServiciosExtra extends DatosReserva {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes() {
+    public void iniciarComponentes() {
 
         /**/
 
@@ -100,8 +108,8 @@ public class ServiciosExtra extends DatosReserva {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
-                InformacionPago infoPago= new InformacionPago();
+                idServicio0 = "Hola";
+                InformacionPago infoPago= new InformacionPago(null, null, null, idServicio0);
                 infoPago.setVisible(true);
             }
         });
