@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class HabitacionesDisponibles extends JFrame implements ActionListener {
     private JMenuItem menuHorarios;
@@ -71,7 +72,10 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
         ResultSet resultado = sentencia.executeQuery("SELECT * FROM Habitaciones WHERE TipoHabitacion = '" + tipoHabitacion + "' AND NumCamas = " + numCamasHabitacion /*+ " AND numHabitacion NOT IN (SELECT numHabitacion FROM Reserva WHERE fechaLlegada = '" + fechaLlegada + "' AND fechaSalida = '" + fechaSalida + "') "*/);
 
         int i = 0;
+        ButtonGroup grupoBotones = new ButtonGroup();
+        ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
         while (resultado.next()) {
+
             JRadioButton radioButton1 = new JRadioButton("Habitación " + (i+1));
 
             JLabel labelDatos = new JLabel("Datos de la habitación " + (i+1) + ":");
@@ -101,6 +105,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
             labelPrecio.setBounds(50,labelNumBanos.getY()+20,200,30);
 
             miPanel.setPreferredSize(new Dimension(665, labelNumBanos.getY()+50));
+            grupoBotones.add(radioButton1);
             miPanel.add(radioButton1);
             miPanel.add(labelDatos);
             miPanel.add(labelNumHab);
@@ -110,8 +115,11 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
             miPanel.add(labelPrecio);
 
             seleccionar.setBounds(560,labelNumBanos.getY()+10,100,30);
+            Habitacion h = new Habitacion(resultado.getInt("numHabitacion"), resultado.getString("TipoHabitacion"), resultado.getInt("NumCamas"), resultado.getInt("NumBaños"), resultado.getInt("Precio"), resultado.getString("DNIEmpleado"));
+            habitaciones.add(h);
             i++;
         }
+
 
         /*Añade los componentes al panel*/
         miPanel.add(titulo);
@@ -124,11 +132,15 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
         menuHorarios.addActionListener(this);
         seleccionar.addActionListener(e -> {
             if(e.getSource() == seleccionar){
+                GroupButtonUtils groupButtonUtils = new GroupButtonUtils();
+                String numHabitacion = groupButtonUtils.getSelectedButtonText(grupoBotones);
+                int numHab = Integer.parseInt(numHabitacion.substring(11));
+
                 if (tipoParking == null){
-                    DatosReserva datosReserva = new DatosReserva();
+                    DatosReserva datosReserva = new DatosReserva(habitaciones.get(numHab-1), fechaLlegada, fechaSalida);
                     datosReserva.setVisible(true);
                 }else{
-                    Parking seleccionarParking = new Parking(48);
+                    Parking seleccionarParking = new Parking(48, habitaciones.get(numHab-1), fechaLlegada, fechaSalida);
                     seleccionarParking.setVisible(true);
 
 
