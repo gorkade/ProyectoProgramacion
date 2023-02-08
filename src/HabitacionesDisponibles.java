@@ -94,8 +94,11 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
 
             JLabel labelNumBanos = new JLabel("Número de baños " + resultado.getInt("NumBaños"));
 
-            JLabel labelPrecio= new JLabel(" " + resultado.getInt("Precio"));
             labelNumBanos.setBounds(50, labelNumCamas.getY()+20, 200, 30);
+
+            JLabel labelPrecio= new JLabel("Precio total " + resultado.getDouble("Precio"));
+
+            labelPrecio.setBounds(50,labelPrecio.getY()+20,200,30);
 
             miPanel.setPreferredSize(new Dimension(665, labelNumBanos.getY()+50));
             miPanel.add(radioButton1);
@@ -104,6 +107,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
             miPanel.add(labelTipoHab);
             miPanel.add(labelNumCamas);
             miPanel.add(labelNumBanos);
+            miPanel.add(labelPrecio);
 
             seleccionar.setBounds(560,labelNumBanos.getY()+10,100,30);
             i++;
