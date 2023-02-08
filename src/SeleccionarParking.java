@@ -100,11 +100,11 @@ public class SeleccionarParking extends JFrame implements ActionListener {
             this.setVisible(false);
         }
 
-        if(e.getSource()==buscar){
+        /*if(e.getSource()==buscar){
             DatosReserva datosReserva = new DatosReserva();
             datosReserva.setVisible(true);
             this.setVisible(false);
-        }
+        }*/
     }
 }
 

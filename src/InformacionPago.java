@@ -111,7 +111,7 @@ public class InformacionPago extends JFrame {
 
 
                 try {
-                    //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
+                    //Conectamos a la base de datos
                     Statement miStatement = ConexionDB.miConexion.createStatement();
                     String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
                     miStatement.executeUpdate(SQL);
