@@ -11,7 +11,7 @@ public class Parking extends JFrame {
     private boolean[] parkingSpaceAvailability;
     private int numberOfSpaces;
 
-    public Parking(int numberOfSpaces) {
+    public Parking(int numberOfSpaces, Habitacion habitacion, String fechaLlegada, String fechaSalida) {
         super("Parking Lot");
 
         this.numberOfSpaces = numberOfSpaces;
@@ -100,6 +100,13 @@ public class Parking extends JFrame {
         botonesinferiores.add(selec);
         botonesinferiores.add(aceptar);
 
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DatosReserva datosReserva = new DatosReserva(habitacion, fechaLlegada, fechaSalida);
+                datosReserva.setVisible(true);
+            }
+        });
 // Add the new JPanel to the bottom of the main JPanel
         panel.add(botonesinferiores, BorderLayout.SOUTH);
         add(panel);

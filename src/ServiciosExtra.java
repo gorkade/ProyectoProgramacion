@@ -5,10 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ServiciosExtra extends DatosReserva {
-    public ServiciosExtra()//constructor
+public class ServiciosExtra extends JFrame implements ActionListener {
+    public ServiciosExtra(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida)//constructor
     {
-        iniciarComponentes();
+        iniciarComponentes(habitacion, cliente, fechaLlegada, fechaSalida);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Reserva");
         //tamaño de la ventana
@@ -21,7 +21,7 @@ public class ServiciosExtra extends DatosReserva {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes() {
+    private void iniciarComponentes(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida) {
 
         /**/
 
@@ -109,6 +109,10 @@ public class ServiciosExtra extends DatosReserva {
         });
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
 
 
