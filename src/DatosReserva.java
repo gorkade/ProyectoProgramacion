@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class DatosReserva extends VentanaPrincipal {
+public class DatosReserva extends JFrame {
 
     /*items del menu Tipo*/
     private JComboBox comboPais;
@@ -31,7 +31,7 @@ public class DatosReserva extends VentanaPrincipal {
 
 
     //Metodo que genera los componentes de la ventana
-    private void iniciarComponentes(String fechaLlegada, String fechaSalida) {
+    private void iniciarComponentes() {
 
         /**/
 
@@ -126,6 +126,30 @@ public class DatosReserva extends VentanaPrincipal {
 
         setJMenuBar(barraMenu);
 
+        miPanel.add(labelNombre);
+        miPanel.add(Nombre);
+        miPanel.add(labelApellidos);
+        miPanel.add(Apellidos);
+        miPanel.add(labelNIF);
+        miPanel.add(NIF);
+        miPanel.add(labelDireccion);
+        miPanel.add(Direccion);
+        miPanel.add(labelTelefono);
+        miPanel.add(Telefono);
+        miPanel.add(labelEmail);
+        miPanel.add(Email);
+        miPanel.add(labelCiudad);
+        miPanel.add(Ciudad);
+        miPanel.add(labelPais);
+        miPanel.add(comboPais);
+        miPanel.add(labelCP);
+        miPanel.add(CP);
+        miPanel.add(enviar);
+        add(miPanel);
+        miPanel.setVisible(true);
+
+        enviar.setVisible(true);
+
         String nombre = Nombre.getText();
         String apellidos = Apellidos.getText();
         String nif = NIF.getText();
@@ -158,7 +182,7 @@ public class DatosReserva extends VentanaPrincipal {
                         JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
                         ServiciosExtra serviciosExtra = new ServiciosExtra();
                         serviciosExtra.setVisible(true);
-                        new InformacionPago(DNI, fechaLlegadaa, fechaSalidaa, serviciosExtra.idServicio0);
+                        new InformacionPago(DNI, VentanaPrincipal.fechaLlegadaa, VentanaPrincipal.fechaSalidaa, serviciosExtra.idServicio0);
                     }
                 }catch(Exception ex) {
                     System.out.println(ex);
@@ -172,28 +196,7 @@ public class DatosReserva extends VentanaPrincipal {
         });
 
 
-        miPanel.add(labelNombre);
-        miPanel.add(Nombre);
-        miPanel.add(labelApellidos);
-        miPanel.add(Apellidos);
-        miPanel.add(labelNIF);
-        miPanel.add(NIF);
-        miPanel.add(labelDireccion);
-        miPanel.add(Direccion);
-        miPanel.add(labelTelefono);
-        miPanel.add(Telefono);
-        miPanel.add(labelEmail);
-        miPanel.add(Email);
-        miPanel.add(labelCiudad);
-        miPanel.add(Ciudad);
-        miPanel.add(labelPais);
-        miPanel.add(comboPais);
-        miPanel.add(labelCP);
-        miPanel.add(CP);
-        miPanel.add(enviar);
-        add(miPanel);
 
-        enviar.setVisible(true);
 
     }
 

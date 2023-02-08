@@ -18,8 +18,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private JComboBox comboTipo, comboTipoParking;
     private JDateChooser calendarioLlegada;
-    public String fechaLlegadaa;
-    public String fechaSalidaa;
+    public static String fechaLlegadaa;
+    public static String fechaSalidaa;
     private JDateChooser calendarioSalida;
 
     private JLabel labelTipoParking;

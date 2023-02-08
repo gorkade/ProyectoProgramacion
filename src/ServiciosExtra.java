@@ -87,9 +87,9 @@ public class ServiciosExtra extends DatosReserva {
         setJMenuBar(barraMenu);
 
 
-        menuHorarios.addActionListener(this);
-        menuDatos.addActionListener(this);
-        enviar.addActionListener(this);
+        menuHorarios.addActionListener((ActionListener) this);
+        menuDatos.addActionListener((ActionListener) this);
+        enviar.addActionListener((ActionListener) this);
 
         miPanel.add(labelServiciosExtra);
         miPanel.add(bar);

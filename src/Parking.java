@@ -103,7 +103,7 @@ public class Parking extends JFrame {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DatosReserva datosReserva = new DatosReserva(habitacion, fechaLlegada, fechaSalida);
+                DatosReserva datosReserva = new DatosReserva();
                 datosReserva.setVisible(true);
             }
         });
