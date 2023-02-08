@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +18,7 @@ public class VentanaDatos extends JFrame implements ActionListener {
     private JLabel titulo, labelTipoPersona, labelDNI, labelDatos, labelDatos2;
     private JTextField dni;
 
-    private Button consultar;
+    private Button consultar, añadir;
 
     public VentanaDatos()//constructor
     {
@@ -45,6 +46,7 @@ public class VentanaDatos extends JFrame implements ActionListener {
         menuHorarios = new JMenuItem("Horarios");
         menuDatos = new JMenuItem("Datos");
         barraMenu = new JMenuBar();
+        añadir = new Button("Añadir Empleado Partiendo de un Archivo");
 
         titulo = new JLabel();
         labelTipoPersona = new JLabel();
@@ -59,12 +61,14 @@ public class VentanaDatos extends JFrame implements ActionListener {
 
         /*Labels*/
         titulo.setBounds(10,0,250,30);
-        titulo.setText("CONSULTAR DATOS PERSONAS:");
+        titulo.setText("DATOS PERSONAS:");
 
         labelTipoPersona.setBounds(10,20,120,30);
         labelTipoPersona.setText("Tipo de Persona: ");
 
         comboTipoPersona.setBounds(130,25,130,20);
+
+        añadir.setBounds(300,25,250,20);
 
         labelDNI.setBounds(10,45,150,30);
         labelDNI.setText("Documento de Identidad: ");
@@ -94,10 +98,50 @@ public class VentanaDatos extends JFrame implements ActionListener {
         menuReserva.addActionListener(this);
         menuHorarios.addActionListener(this);
 
+        añadir.addActionListener(p -> {
+            File archivo = new File("empleados.txt");
+            try {
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+
+                while ((linea = br.readLine()) != null) {
+                    String[] datos = linea.split(";");
+                    String DNI = datos[0];
+                    String NumEmpleado = datos[1];
+                    String Nombre = datos[2];
+                    String Apellido = datos[3];
+                    String HoraInicio = datos[4];
+                    String HoraFinal = datos[5];
+                    String Zona = datos[6];
+                    String TipoEmpleado = datos[7];
+                    String Salario = datos[8];
+
+                    Statement st = ConexionDB.miConexion.createStatement();
+
+                    ResultSet rs = st.executeQuery("SELECT * FROM Empleado WHERE DNI = '" + DNI + "'");
+
+                    if (!rs.next()) {
+                        st.executeUpdate("INSERT INTO Empleado VALUES ('" + DNI + "','" + NumEmpleado + "','" + Nombre + "','" + Apellido + "','" + HoraInicio + "','" + HoraFinal + "','" + Zona + "','" + TipoEmpleado + "','" + Salario + "')");
+
+                        JOptionPane.showMessageDialog(null, "Empleado añadido correctamente");
+                    }
+                }
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         miPanel.add(titulo);
         miPanel.add(labelTipoPersona);
         miPanel.add(comboTipoPersona);
         miPanel.add(dni);
+        miPanel.add(añadir);
         miPanel.add(labelDNI);
         miPanel.add(labelDatos);
         miPanel.add(labelDatos2);
