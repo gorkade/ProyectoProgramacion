@@ -108,7 +108,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
             miPanel.add(labelNumCamas);
             miPanel.add(labelNumBanos);
             miPanel.add(labelPrecio);
-
+            labelPrecio.setVisible(true);
             seleccionar.setBounds(560,labelNumBanos.getY()+10,100,30);
             i++;
         }
