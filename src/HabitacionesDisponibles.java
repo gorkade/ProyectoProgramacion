@@ -76,17 +76,29 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
         int i = 0;
         while (resultado.next()) {
             JRadioButton radioButton1 = new JRadioButton("Habitación " + (i+1));
+
             JLabel labelDatos = new JLabel("Datos de la habitación " + (i+1) + ":");
+
             radioButton1.setBounds(10, 30 + (i*150), 200, 30);
+
             labelDatos.setBounds(50, radioButton1.getY()+30, 200, 30);
+
             JLabel labelNumHab = new JLabel("Número habitación " + resultado.getInt("numHabitacion"));
+
             labelNumHab.setBounds(50, labelDatos.getY()+20, 200, 30);
+
             JLabel labelTipoHab = new JLabel("Tipo habitación " + resultado.getString("TipoHabitacion"));
+
             labelTipoHab.setBounds(50, labelNumHab.getY()+20, 200, 30);
+
             JLabel labelNumCamas = new JLabel("Número de camas " + resultado.getInt("NumCamas"));
+
             labelNumCamas.setBounds(50, labelTipoHab.getY()+20, 200, 30);
+
             JLabel labelNumBanos = new JLabel("Número de baños " + resultado.getInt("NumBaños"));
+
             labelNumBanos.setBounds(50, labelNumCamas.getY()+20, 200, 30);
+            JLabel labelPrecio= new JLabel("" + resultado.getInt("Precio"));
             miPanel.setPreferredSize(new Dimension(665, labelNumBanos.getY()+50));
             miPanel.add(radioButton1);
             miPanel.add(labelDatos);
