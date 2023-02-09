@@ -185,7 +185,7 @@ public class DatosReserva extends JFrame {
                         JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
                         ServiciosExtra serviciosExtra = new ServiciosExtra(habitacion, cliente, fechaLlegada, fechaSalida);
                         serviciosExtra.setVisible(true);
-                        new InformacionPago(DNI, VentanaPrincipal.fechaLlegadaa, VentanaPrincipal.fechaSalidaa, serviciosExtra.idServicio0);
+                        new InformacionPago(DNI, habitacion ,VentanaPrincipal.fechaLlegadaa, VentanaPrincipal.fechaSalidaa, serviciosExtra.idServicio);
                     }
                 }catch(Exception ex) {
                     System.out.println(ex);

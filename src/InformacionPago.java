@@ -4,15 +4,14 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class InformacionPago extends JFrame {
 
     private static JButton enviar;
 
-    public InformacionPago(String DNIR, String fechaLlegadaa, String fechaSalidaa, String idServicio0) throws ParseException {
+    public InformacionPago(String DNIR, Habitacion numHabitacion, String fechaLlegada, String fechaSalida, String idServicio0) throws ParseException {
 
-        IniciarComponentes(DNIR, fechaLlegadaa, fechaSalidaa, idServicio0);
+        IniciarComponentes(DNIR, numHabitacion, fechaLlegada, fechaSalida, idServicio0);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Informacion de pago");
         //tamaño de la ventana
@@ -28,7 +27,7 @@ public class InformacionPago extends JFrame {
     }
 
 
-    public void IniciarComponentes(String DNIR, String fechaLlegadaa, String fechaSalidaa, String idServicio0) throws ParseException {
+    public void IniciarComponentes(String DNIR, Habitacion numHabitacion, String fechaLlegada, String fechaSalida, String idServicio0) throws ParseException {
 
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
@@ -49,7 +48,7 @@ public class InformacionPago extends JFrame {
 
         JLabel infoPago = new JLabel();
         JLabel nombreTitularTarj = new JLabel();
-        JTextField NombreTitularTarjetaa = new JTextField ();
+        JTextField NombreTitularTarjetaa = new JTextField();
         JLabel numTarjeta = new JLabel();
         JTextField NumTarjetaa = new JTextField();
         JLabel fechaCaducidadTarjeta = new JLabel();
@@ -70,7 +69,7 @@ public class InformacionPago extends JFrame {
         nombreTitularTarj.setText("Nombre Titular de la Tarjeta: ");
         NombreTitularTarjetaa.setBounds(10, 70, 250, 40);
 
-        DNII.setBounds(10, 110,250, 40);
+        DNII.setBounds(10, 110, 250, 40);
         DNII.setText("DNI: ");
         DNIT.setBounds(50, 110, 150, 40);
 
@@ -78,13 +77,13 @@ public class InformacionPago extends JFrame {
         numTarjeta.setText("Numero de la Tarjeta");
         NumTarjetaa.setBounds(10, 175, 250, 40);
 
-        fechaCaducidadTarjeta.setBounds(300,40, 170, 40);
+        fechaCaducidadTarjeta.setBounds(300, 40, 170, 40);
         fechaCaducidadTarjeta.setText("Fecha Caducidad");
         FechaCaducidadTarjetaa.setBounds(295, 70, 170, 40);
 
         CVV.setBounds(530, 40, 100, 40);
         CVV.setText("CVV:");
-        CVVV.setBounds(525,70,50,40);
+        CVVV.setBounds(525, 70, 50, 40);
 
         enviar.setBounds(530, 220, 170, 40);
         enviar.setText("Enviar");
@@ -117,30 +116,38 @@ public class InformacionPago extends JFrame {
                 try {
                     //Conectamos a la base de datos
                     Statement miStatement = ConexionDB.miConexion.createStatement();
-                    String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
+                    String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
                     miStatement.executeUpdate(SQL);
 
-                    System.out.println(fechaLlegadaa + fechaSalidaa + DNIR);
+                    System.out.println(fechaLlegada + fechaSalida + DNIR);
 
                     //SQL = "INSERT INTO Reserva (DNI, NumPlazaParking, NumHabitacion, ServicioExtra1, ServicioExtra2, ServicioExtra3, ServicioExtra4, ServicioExtra5, Descuento, PrecioTotal, FechaLlegada, FechaSalida) VALUES ('"+DNIR+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
 
-                }catch(Exception ex) {
+                } catch (Exception ex) {
                     System.out.println(ex);
-                    JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
+                    JOptionPane.showMessageDialog(null, "Error: No se ha podido insertar los datos");
                 }
 
 
             }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+            Date firstDate = null;
+            Date secondDate = null;
+            try {
+                firstDate = sdf.parse(fechaLlegada);
+                secondDate = sdf.parse(fechaSalida);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            long dias = secondDate.getTime() - firstDate.getTime();
+
+            System.out.println(dias);
+
+
         });
-
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd", Locale.ENGLISH);
-        Date firstDate = sdf.parse(fechaLlegadaa);
-        Date secondDate = sdf.parse(fechaSalidaa);
-         long dias = secondDate.getTime() - firstDate.getTime();
-
-        System.out.println(dias);
     }
-
-
-
 }
+
+

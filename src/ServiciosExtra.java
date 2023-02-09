@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 public class ServiciosExtra extends JFrame implements ActionListener {
+    String idServicio;
     public ServiciosExtra(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida)//constructor
     {
         iniciarComponentes(habitacion, cliente, fechaLlegada, fechaSalida);
@@ -103,7 +105,12 @@ public class ServiciosExtra extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
 
 
-                InformacionPago infoPago= new InformacionPago();
+                InformacionPago infoPago= null;
+                try {
+                    infoPago = new InformacionPago(DatosReserva.DNI, habitacion ,fechaLlegada, fechaSalida, idServicio);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
                 infoPago.setVisible(true);
             }
         });

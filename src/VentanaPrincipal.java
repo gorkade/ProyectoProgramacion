@@ -205,7 +205,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
             try {
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
-                new InformacionPago(null, fechaLlegadaa, fechaLlegadaa, null);
+                new InformacionPago(null, null,  fechaLlegada, fechaLlegada, null);
             } catch (SQLException | ParseException ex) {
 
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");
