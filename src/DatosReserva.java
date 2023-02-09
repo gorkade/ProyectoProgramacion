@@ -150,23 +150,23 @@ public class DatosReserva extends JFrame {
 
         enviar.setVisible(true);
 
-        String nombre = Nombre.getText();
-        String apellidos = Apellidos.getText();
-        String nif = NIF.getText();
-        DNI = NIF.getText();
-        String direccion = Direccion.getText();
-        String telefono = Telefono.getText();
-        String email = Email.getText();
-        String ciudad = Ciudad.getText();
-        String cp = CP.getText();
-        String pais = comboPais.getSelectedItem().toString();
 
         enviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //Recogemos el texto de los JTextFields
 
+                //Recogemos el texto de los JTextFields
+                String nombre = Nombre.getText();
+                String apellidos = Apellidos.getText();
+                String nif = NIF.getText();
+                DNI = NIF.getText();
+                String direccion = Direccion.getText();
+                String telefono = Telefono.getText();
+                String email = Email.getText();
+                String ciudad = Ciudad.getText();
+                String cp = CP.getText();
+                String pais = comboPais.getSelectedItem().toString();
 
                 //Creamos un objeto de tipo Cliente
                 Cliente cliente = new Cliente(nombre, apellidos, nif, direccion, telefono, email, ciudad, cp, pais);
