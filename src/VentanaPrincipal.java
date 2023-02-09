@@ -5,6 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
@@ -28,7 +39,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private Button buscar;
 
-    public VentanaPrincipal()//constructor
+    public VentanaPrincipal() //constructor
     {
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
@@ -58,9 +69,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         comboTipo = new JComboBox(tiposHabitacion);
         JScrollBar scrollBar = new JScrollBar();
 
-        calendarioLlegada= new JDateChooser();
-        calendarioLlegada.setMinSelectableDate(new java.util.Date());
-        calendarioSalida= new JDateChooser();
+        calendarioLlegada = new JDateChooser();
+        calendarioLlegada.setMinSelectableDate(new Date());
+        calendarioSalida = new JDateChooser();
 
         reservaParking = new JCheckBox("Reserva Parking");
         comboTipoParking = new JComboBox(tiposParking);
@@ -129,6 +140,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
         calendarioSalida.setDateFormatString("dd/MM/yyyy");
         calendarioLlegada.setDateFormatString("dd/MM/yyyy");
+
 
         menuHorarios.addActionListener(this);
         menuDatos.addActionListener(this);
@@ -201,7 +213,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             try {
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
                 new InformacionPago(null, fechaLlegadaa, fechaLlegadaa, null);
-            } catch (SQLException ex) {
+            } catch (SQLException | ParseException ex) {
 
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");
 

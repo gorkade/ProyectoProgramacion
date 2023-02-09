@@ -1,12 +1,16 @@
 import javax.swing.*;
 //import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class InformacionPago extends JFrame {
 
     private static JButton enviar;
 
-    public InformacionPago(String DNIR, String fechaLlegadaa, String fechaSalidaa, String idServicio0){
+    public InformacionPago(String DNIR, String fechaLlegadaa, String fechaSalidaa, String idServicio0) throws ParseException {
 
         IniciarComponentes(DNIR, fechaLlegadaa, fechaSalidaa, idServicio0);
         //Asigna un titulo a la barra de titulo
@@ -24,7 +28,7 @@ public class InformacionPago extends JFrame {
     }
 
 
-    public void IniciarComponentes(String DNIR, String fechaLlegadaa, String fechaSalidaa, String idServicio0){
+    public void IniciarComponentes(String DNIR, String fechaLlegadaa, String fechaSalidaa, String idServicio0) throws ParseException {
 
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
@@ -129,6 +133,12 @@ public class InformacionPago extends JFrame {
             }
         });
 
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd", Locale.ENGLISH);
+        Date firstDate = sdf.parse(fechaLlegadaa);
+        Date secondDate = sdf.parse(fechaSalidaa);
+         long dias = secondDate.getTime() - firstDate.getTime();
+
+        System.out.println(dias);
     }
 
 

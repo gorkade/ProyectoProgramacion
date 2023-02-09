@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 public class ServiciosExtra extends DatosReserva {
 
@@ -109,7 +110,12 @@ public class ServiciosExtra extends DatosReserva {
             public void actionPerformed(ActionEvent e) {
 
                 idServicio0 = "Hola";
-                InformacionPago infoPago= new InformacionPago(null, null, null, idServicio0);
+                InformacionPago infoPago= null;
+                try {
+                    infoPago = new InformacionPago(DatosReserva.DNI, VentanaPrincipal.fechaLlegadaa, VentanaPrincipal.fechaSalidaa, idServicio0);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
                 infoPago.setVisible(true);
             }
         });
