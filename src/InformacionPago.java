@@ -100,6 +100,7 @@ public class InformacionPago extends JFrame {
         miPanel.add(CVV);
         miPanel.add(CVVV);
         miPanel.add(enviar);
+        add(miPanel);
         //miPanel.add(miPanel);
 
         enviar.setVisible(true);
