@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Date;
+
+
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
@@ -18,6 +22,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private JComboBox comboTipo, comboTipoParking;
     private JDateChooser calendarioLlegada;
+    public static String fechaLlegadaa;
+    public static String fechaSalidaa;
     private JDateChooser calendarioSalida;
 
     private JLabel labelTipoParking;
@@ -26,7 +32,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private Button buscar;
 
-    public VentanaPrincipal()//constructor
+    public VentanaPrincipal() //constructor
     {
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
@@ -41,7 +47,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes() {
+    public void iniciarComponentes() {
 
         /**/
 
@@ -56,9 +62,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         comboTipo = new JComboBox(tiposHabitacion);
         JScrollBar scrollBar = new JScrollBar();
 
-        calendarioLlegada= new JDateChooser();
-        calendarioLlegada.setMinSelectableDate(new java.util.Date());
-        calendarioSalida= new JDateChooser();
+        calendarioLlegada = new JDateChooser();
+        calendarioLlegada.setMinSelectableDate(new Date());
+        calendarioSalida = new JDateChooser();
 
         reservaParking = new JCheckBox("Reserva Parking");
         comboTipoParking = new JComboBox(tiposParking);
@@ -128,6 +134,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         calendarioSalida.setDateFormatString("dd/MM/yyyy");
         calendarioLlegada.setDateFormatString("dd/MM/yyyy");
 
+
         menuHorarios.addActionListener(this);
         menuDatos.addActionListener(this);
         reservaParking.addActionListener(this);
@@ -189,6 +196,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             String tipoHabitacion = (String) comboTipo.getSelectedItem();
             int numCamasHabitacion = (int) numCamas.getValue();
             String fechaLlegada = calendarioLlegada.getDate().toString();
+            fechaLlegadaa = calendarioLlegada.getDate().toString();
+            fechaSalidaa = calendarioSalida.getDate().toString();
             String fechaSalida = calendarioSalida.getDate().toString();
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
@@ -196,7 +205,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
             try {
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
-            } catch (SQLException ex) {
+                new InformacionPago(null, fechaLlegadaa, fechaLlegadaa, null);
+            } catch (SQLException | ParseException ex) {
 
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");
 
