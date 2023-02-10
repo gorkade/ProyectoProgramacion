@@ -131,8 +131,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
         setJMenuBar(barraMenu);
 
-        calendarioSalida.setDateFormatString("dd/MM/yyyy");
-        calendarioLlegada.setDateFormatString("dd/MM/yyyy");
+        calendarioSalida.setDateFormatString("EEE MMM dd HH:mm:ss z yyyy");
+        calendarioLlegada.setDateFormatString("EEE MMM dd HH:mm:ss z yyyy");
 
 
         menuHorarios.addActionListener(this);
@@ -156,6 +156,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         miPanel.add(comboTipoParking);
         miPanel.add(buscar);
         add(miPanel);
+
 
         buscar.setVisible(true);
         labelTipoParking.setVisible(false);
@@ -196,8 +197,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             String tipoHabitacion = (String) comboTipo.getSelectedItem();
             int numCamasHabitacion = (int) numCamas.getValue();
             String fechaLlegada = calendarioLlegada.getDate().toString();
-            fechaLlegadaa = calendarioLlegada.getDate().toString();
-            fechaSalidaa = calendarioSalida.getDate().toString();
             String fechaSalida = calendarioSalida.getDate().toString();
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
@@ -205,8 +204,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
             try {
                 System.out.println(fechaLlegadaa);
-                ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, tipoParking);
-                new InformacionPago(null, null,  fechaLlegada, fechaLlegada, null);
+                ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,calendarioSalida,calendarioLlegada, tipoParking);
+                new InformacionPago(null, null,  calendarioSalida, calendarioLlegada, null);
             } catch (SQLException | ParseException ex) {
 
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");

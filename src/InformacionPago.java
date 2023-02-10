@@ -1,17 +1,22 @@
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 //import java.sql.ResultSet;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class InformacionPago extends JFrame {
 
     private static JButton enviar;
 
-    public InformacionPago(String DNIR, Habitacion numHabitacion, String fechaLlegada, String fechaSalida, String idServicio0) throws ParseException {
+    public InformacionPago(String DNIR, Habitacion numHabitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada, String idServicio0) throws ParseException {
 
-        IniciarComponentes(DNIR, numHabitacion, fechaLlegada, fechaSalida, idServicio0);
+        IniciarComponentes(DNIR, numHabitacion, calendarioSalida, calendarioLlegada, idServicio0);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Informacion de pago");
         //tamaño de la ventana
@@ -27,7 +32,7 @@ public class InformacionPago extends JFrame {
     }
 
 
-    public void IniciarComponentes(String DNIR, Habitacion numHabitacion, String fechaLlegada, String fechaSalida, String idServicio0) throws ParseException {
+    public void IniciarComponentes(String DNIR, Habitacion numHabitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada, String idServicio0)  {
 
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
@@ -120,7 +125,7 @@ public class InformacionPago extends JFrame {
                     String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
                     miStatement.executeUpdate(SQL);
 
-                    System.out.println(fechaLlegada + fechaSalida + DNIR);
+                    //System.out.println(fechaLlegada + fechaSalida + DNIR);
 
                     //SQL = "INSERT INTO Reserva (DNI, NumPlazaParking, NumHabitacion, ServicioExtra1, ServicioExtra2, ServicioExtra3, ServicioExtra4, ServicioExtra5, Descuento, PrecioTotal, FechaLlegada, FechaSalida) VALUES ('"+DNIR+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
 
@@ -132,19 +137,39 @@ public class InformacionPago extends JFrame {
 
             }
 
-            SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
-            Date firstDate = null;
-            Date secondDate = null;
+            Statement miStatement = null;
+            double precio = 0;
             try {
-                firstDate = sdf.parse(fechaLlegada);
-                secondDate = sdf.parse(fechaSalida);
-            } catch (ParseException ex) {
+                miStatement = ConexionDB.miConexion.createStatement();
+                ResultSet miResultSet = miStatement.executeQuery("SELECT Precio FROM Habitaciones where NumHabitacion like '"+numHabitacion+"'");
+                precio = miResultSet.getDouble("Precio");
+            } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
 
-            long dias = secondDate.getTime() - firstDate.getTime();
 
-            System.out.println(dias);
+
+            Date startDate = calendarioLlegada.getDate();
+            Date endDate = calendarioSalida.getDate();
+            int diffDays = 0;
+
+            if (startDate != null && endDate != null) {
+                Calendar startCalendar = Calendar.getInstance();
+                startCalendar.setTime(startDate);
+
+                Calendar endCalendar = Calendar.getInstance();
+                endCalendar.setTime(endDate);
+
+                long diff = endCalendar.getTimeInMillis() - startCalendar.getTimeInMillis();
+                diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+
+                System.out.println(Integer.toString(diffDays));
+            }
+
+            double preciototalnoches = diffDays * precio;
+
+
+
 
 
         });

@@ -1,3 +1,5 @@
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,7 +13,7 @@ public class Parking extends JFrame {
     private boolean[] parkingSpaceAvailability;
     private int numberOfSpaces;
 
-    public Parking(int numberOfSpaces, Habitacion habitacion, String fechaLlegada, String fechaSalida) {
+    public Parking(int numberOfSpaces, Habitacion habitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada) {
         super("Parking Lot");
 
         this.numberOfSpaces = numberOfSpaces;
@@ -103,7 +105,7 @@ public class Parking extends JFrame {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DatosReserva datosReserva = new DatosReserva(habitacion, fechaLlegada, fechaSalida);
+                DatosReserva datosReserva = new DatosReserva(habitacion, calendarioSalida, calendarioLlegada);
                 datosReserva.setVisible(true);
             }
         });

@@ -8,9 +8,9 @@ import java.text.ParseException;
 
 public class ServiciosExtra extends JFrame implements ActionListener {
     String idServicio;
-    public ServiciosExtra(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida)//constructor
+    public ServiciosExtra(Habitacion habitacion, Cliente cliente, JDateChooser calendarioSalida, JDateChooser calendarioLlegada)//constructor
     {
-        iniciarComponentes(habitacion, cliente, fechaLlegada, fechaSalida);
+        iniciarComponentes(habitacion, cliente, calendarioSalida, calendarioLlegada);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Reserva");
         //tamaño de la ventana
@@ -23,7 +23,7 @@ public class ServiciosExtra extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida) {
+    private void iniciarComponentes(Habitacion habitacion, Cliente cliente, JDateChooser calendarioSalida, JDateChooser calendarioLlegada) {
 
         /**/
 
@@ -107,7 +107,7 @@ public class ServiciosExtra extends JFrame implements ActionListener {
 
                 InformacionPago infoPago= null;
                 try {
-                    infoPago = new InformacionPago(DatosReserva.DNI, habitacion ,fechaLlegada, fechaSalida, idServicio);
+                    infoPago = new InformacionPago(DatosReserva.DNI, habitacion ,calendarioSalida, calendarioLlegada, idServicio);
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
