@@ -171,6 +171,8 @@ public class InformacionPago extends JFrame {
 
             double preciototalnoches = diffDays * precio;
 
+            System.out.println(preciototalnoches);
+
 
 
 
