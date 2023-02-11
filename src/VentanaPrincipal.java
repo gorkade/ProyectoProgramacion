@@ -203,7 +203,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
             HabitacionesDisponibles ventanaHabitaciones = null;
 
             try {
-                System.out.println(fechaLlegadaa);
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,calendarioSalida,calendarioLlegada, tipoParking);
                 new InformacionPago(null, null,  calendarioSalida, calendarioLlegada, null);
             } catch (SQLException | ParseException ex) {

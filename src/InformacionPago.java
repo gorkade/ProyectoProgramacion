@@ -137,14 +137,17 @@ public class InformacionPago extends JFrame {
 
             }
 
-            Statement miStatement = null;
+
             double precio = 0;
             try {
-                miStatement = ConexionDB.miConexion.createStatement();
-                ResultSet miResultSet = miStatement.executeQuery("SELECT Precio FROM Habitaciones where NumHabitacion like '"+numHabitacion+"'");
-                precio = miResultSet.getDouble("Precio");
+                Statement miStatement = ConexionDB.miConexion.createStatement();
+                ResultSet miResultSet = miStatement.executeQuery("SELECT Precio FROM Habitaciones where NumHabitacion like '"+numHabitacion.getNumHabitacion()+"'");
+                if(miResultSet.next()){
+                    precio = miResultSet.getDouble("Precio");
+                }
+
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                ex.printStackTrace();
             }
 
 
