@@ -141,10 +141,11 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
                 if (tipoParking == null){
                     DatosReserva datosReserva = new DatosReserva(habitaciones.get(numHab-1), calendarioSalida, calendarioLlegada);
                     datosReserva.setVisible(true);
+                    this.setVisible(false);
                 }else{
                     Parking seleccionarParking = new Parking(48, habitaciones.get(numHab-1), calendarioSalida, calendarioLlegada);
                     seleccionarParking.setVisible(true);
-
+                    this.setVisible(false);
 
                 }
            }

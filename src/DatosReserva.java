@@ -13,6 +13,17 @@ public class DatosReserva extends JFrame {
     private JComboBox comboPais;
     public static String DNI;
 
+    //jtextields para añadir los datos
+
+    JTextField Nombre ;
+    JTextField Apellidos;
+    JTextField NIF ;
+    JTextField Direccion ;
+    JTextField Telefono ;
+    JTextField Ciudad ;
+    JTextField CP ;
+    JTextField Email;
+
     String[] pais = {"Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue"};
     public DatosReserva(Habitacion habitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada)//constructor
     {
@@ -51,14 +62,14 @@ public class DatosReserva extends JFrame {
         JMenuBar barraMenu = new JMenuBar();
         comboPais = new JComboBox(pais);
 
-        JTextField Nombre = new JTextField();
-        JTextField Apellidos = new JTextField();
-        JTextField NIF = new JTextField();
-        JTextField Direccion = new JTextField();
-        JTextField Telefono = new JTextField();
-        JTextField Ciudad = new JTextField();
-        JTextField CP = new JTextField();
-        JTextField Email = new JTextField();
+         Nombre = new JTextField();
+        Apellidos = new JTextField();
+         NIF = new JTextField();
+         Direccion = new JTextField();
+        Telefono = new JTextField();
+        Ciudad = new JTextField();
+        CP = new JTextField();
+        Email = new JTextField();
 
         /*labels de los menus para mostrar en pantalla*/
         JLabel labelNombre = new JLabel();
@@ -157,7 +168,6 @@ public class DatosReserva extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
                 //Recogemos el texto de los JTextFields
                 String nombre = Nombre.getText();
                 String apellidos = Apellidos.getText();
@@ -181,20 +191,49 @@ public class DatosReserva extends JFrame {
                         JOptionPane.showMessageDialog(null, "El cliente ya existe");
                     }else {
 
-                        //Intrucccion para añadir el cliente a la base de datos
-                        String instruccionSQL = "INSERT INTO Cliente(DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
-                        miStatement.executeUpdate(instruccionSQL);
-                        JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
-                        ServiciosExtra serviciosExtra = new ServiciosExtra(habitacion, cliente, calendarioSalida, calendarioLlegada);
-                        serviciosExtra.setVisible(true);
-                        new InformacionPago(DNI, habitacion , calendarioSalida, calendarioLlegada, serviciosExtra.idServicio);
+                        //Antes de añadir los datos a la base de datos  verificamos que se haya introudicido los datos bien
+
+                        if (nombre.equals("")) {
+
+                            JOptionPane.showMessageDialog(null, "No has añadido el nombre");
+                            } else if(apellidos.equals("")){
+
+                                    JOptionPane.showMessageDialog(null,"No has introducido los apellidos");
+                                } else if (nif.equals("")) {
+
+                                    JOptionPane.showMessageDialog(null,"No has introducido el NIF");
+                                        }else if(direccion.equals("")){
+
+                                            JOptionPane.showMessageDialog(null,"No has introducido tu Direccón");
+                                                } else if (telefono.equals("")) {
+
+                                                    JOptionPane.showMessageDialog(null,"No has introducido tu teléfono");
+                                                }else if(ciudad.equals("")){
+                                                    JOptionPane.showMessageDialog(null,"No has introducido tu Ciudad");
+                                                }else if(cp.equals("")){
+                                                    JOptionPane.showMessageDialog(null,"No has introducido tu Códifo postal");
+                                                }else{
+                                            //Intrucccion para añadir el cliente a la base de datos
+                                             String instruccionSQL = "INSERT INTO Cliente(DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('" + nif + "','" + nombre + "','" + apellidos + "','" + telefono + "','" + email + "','" + direccion + "','" + pais + "','" + ciudad + "','" + cp + "')";
+                                             miStatement.executeUpdate(instruccionSQL);
+                                             JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
+                                             ServiciosExtra serviciosExtra = new ServiciosExtra(habitacion, cliente, calendarioSalida, calendarioLlegada);
+                                             serviciosExtra.setVisible(true);
+                                             new InformacionPago(DNI, habitacion, calendarioSalida, calendarioLlegada, serviciosExtra.idServicio);
+
+                                            dispose();
+                        }
+
                     }
                 }catch(Exception ex) {
                     System.out.println(ex);
+
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
+
+                    dispose();
                 }
 
-                dispose();
+
             }
 
 
