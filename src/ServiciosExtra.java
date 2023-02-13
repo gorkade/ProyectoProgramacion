@@ -1,5 +1,3 @@
-import com.toedter.calendar.JDateChooser;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,10 +5,9 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 public class ServiciosExtra extends JFrame implements ActionListener {
-    String idServicio;
-    public ServiciosExtra(Habitacion habitacion, Cliente cliente, JDateChooser calendarioSalida, JDateChooser calendarioLlegada)//constructor
+    public ServiciosExtra(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida, int dias)//constructor
     {
-        iniciarComponentes(habitacion, cliente, calendarioSalida, calendarioLlegada);
+        iniciarComponentes(habitacion, cliente, fechaLlegada, fechaSalida, dias);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Reserva");
         //tamaño de la ventana
@@ -23,7 +20,7 @@ public class ServiciosExtra extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes(Habitacion habitacion, Cliente cliente, JDateChooser calendarioSalida, JDateChooser calendarioLlegada) {
+    private void iniciarComponentes(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida, int dias) {
 
         /**/
 
@@ -104,14 +101,51 @@ public class ServiciosExtra extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                Extra extras = new Extra();
 
-                InformacionPago infoPago= null;
+                if (bar.isSelected()) {
+                    extras.setBar(true);
+                }else {
+                    extras.setBar(false);
+                }
+
+                if (restaurante.isSelected()) {
+                    extras.setRestaurante(true);
+                }else {
+                    extras.setRestaurante(false);
+                }
+
+                if (actividades.isSelected()) {
+                    extras.setActividades(true);
+                }else {
+                    extras.setActividades(false);
+                }
+
+                if (guarderia.isSelected()) {
+                    extras.setGuarderia(true);
+                }else {
+                    extras.setGuarderia(false);
+                }
+
+                if (cajaFuerte.isSelected()) {
+                    extras.setCajaFuerte(true);
+                }else {
+                    extras.setCajaFuerte(false);
+                }
+
+                if (descuentoFamiliaN.isSelected()) {
+                    extras.setDescuentoFamiliaN(true);
+                }else {
+                    extras.setDescuentoFamiliaN(false);
+                }
+
                 try {
-                    infoPago = new InformacionPago(DatosReserva.DNI, habitacion ,calendarioSalida, calendarioLlegada, idServicio);
+                    InformacionPago infoPago = new InformacionPago(habitacion, cliente, fechaLlegada, fechaSalida, extras, dias);
+                    infoPago.setVisible(true);
+                    dispose();
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
-                infoPago.setVisible(true);
             }
         });
     }

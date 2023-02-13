@@ -1,5 +1,3 @@
-import com.toedter.calendar.JDateChooser;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,9 +12,9 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
     private Button seleccionar;
 
 
-    public HabitacionesDisponibles(final String tipoHabitacion, final int numCamasHabitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada, final String tipoParking) throws SQLException{
+    public HabitacionesDisponibles(final String tipoHabitacion, final int numCamasHabitacion, final String fechaLlegada, final String fechaSalida, int dias, final String tipoParking) throws SQLException{
         super();
-        iniciarComponentes(tipoHabitacion, numCamasHabitacion, calendarioSalida, calendarioLlegada, tipoParking);
+        iniciarComponentes(tipoHabitacion, numCamasHabitacion, fechaLlegada, fechaSalida, dias, tipoParking);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Habitaciones Disponibles");
         //tamaño de la ventana
@@ -29,7 +27,7 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniciarComponentes(String tipoHabitacion, int numCamasHabitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada, String tipoParking) throws  SQLException {
+    private void iniciarComponentes(String tipoHabitacion, int numCamasHabitacion, String fechaLlegada, String fechaSalida, int dias, String tipoParking) throws  SQLException {
 
         /*
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -139,13 +137,12 @@ public class HabitacionesDisponibles extends JFrame implements ActionListener {
                 int numHab = Integer.parseInt(numHabitacion.substring(11));
 
                 if (tipoParking == null){
-                    DatosReserva datosReserva = new DatosReserva(habitaciones.get(numHab-1), calendarioSalida, calendarioLlegada);
+                    DatosReserva datosReserva = new DatosReserva(habitaciones.get(numHab-1), fechaLlegada, fechaSalida, dias);
                     datosReserva.setVisible(true);
-                    this.setVisible(false);
                 }else{
-                    Parking seleccionarParking = new Parking(48, habitaciones.get(numHab-1), calendarioSalida, calendarioLlegada);
+                    Parking seleccionarParking = new Parking(48, habitaciones.get(numHab-1), fechaLlegada, fechaSalida, dias);
                     seleccionarParking.setVisible(true);
-                    this.setVisible(false);
+
 
                 }
            }

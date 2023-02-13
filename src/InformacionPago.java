@@ -1,22 +1,21 @@
-import com.toedter.calendar.JDateChooser;
-
 import javax.swing.*;
 //import java.sql.ResultSet;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class InformacionPago extends JFrame {
 
     private static JButton enviar;
 
-    public InformacionPago(String DNIR, Habitacion numHabitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada, String idServicio0) throws ParseException {
+    public InformacionPago(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias) throws ParseException {
 
-        IniciarComponentes(DNIR, numHabitacion, calendarioSalida, calendarioLlegada, idServicio0);
+        IniciarComponentes(habitacion, cliente, fechaLlegadaa, fechaSalidaa, extras, dias);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Informacion de pago");
         //tamaño de la ventana
@@ -32,7 +31,7 @@ public class InformacionPago extends JFrame {
     }
 
 
-    public void IniciarComponentes(String DNIR, Habitacion numHabitacion, JDateChooser calendarioSalida, JDateChooser calendarioLlegada, String idServicio0)  {
+    public void IniciarComponentes(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias) throws ParseException {
 
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
@@ -53,7 +52,7 @@ public class InformacionPago extends JFrame {
 
         JLabel infoPago = new JLabel();
         JLabel nombreTitularTarj = new JLabel();
-        JTextField NombreTitularTarjetaa = new JTextField();
+        JTextField NombreTitularTarjetaa = new JTextField ();
         JLabel numTarjeta = new JLabel();
         JTextField NumTarjetaa = new JTextField();
         JLabel fechaCaducidadTarjeta = new JLabel();
@@ -74,7 +73,7 @@ public class InformacionPago extends JFrame {
         nombreTitularTarj.setText("Nombre Titular de la Tarjeta: ");
         NombreTitularTarjetaa.setBounds(10, 70, 250, 40);
 
-        DNII.setBounds(10, 110, 250, 40);
+        DNII.setBounds(10, 110,250, 40);
         DNII.setText("DNI: ");
         DNIT.setBounds(50, 110, 150, 40);
 
@@ -82,13 +81,13 @@ public class InformacionPago extends JFrame {
         numTarjeta.setText("Numero de la Tarjeta");
         NumTarjetaa.setBounds(10, 175, 250, 40);
 
-        fechaCaducidadTarjeta.setBounds(300, 40, 170, 40);
+        fechaCaducidadTarjeta.setBounds(300,40, 170, 40);
         fechaCaducidadTarjeta.setText("Fecha Caducidad");
         FechaCaducidadTarjetaa.setBounds(295, 70, 170, 40);
 
         CVV.setBounds(530, 40, 100, 40);
         CVV.setText("CVV:");
-        CVVV.setBounds(525, 70, 50, 40);
+        CVVV.setBounds(525,70,50,40);
 
         enviar.setBounds(530, 220, 170, 40);
         enviar.setText("Enviar");
@@ -106,7 +105,6 @@ public class InformacionPago extends JFrame {
         miPanel.add(CVVV);
         miPanel.add(enviar);
         add(miPanel);
-        //miPanel.add(miPanel);
 
         enviar.setVisible(true);
         enviar.addActionListener(e -> {
@@ -122,63 +120,87 @@ public class InformacionPago extends JFrame {
                 try {
                     //Conectamos a la base de datos
                     Statement miStatement = ConexionDB.miConexion.createStatement();
-                    String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
+                    String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
                     miStatement.executeUpdate(SQL);
 
-                    //System.out.println(fechaLlegada + fechaSalida + DNIR);
+                    if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {
+                        JOptionPane.showMessageDialog(null, "Imprimiendo ticket");
+
+                        File ticket = new File("ticket.txt");
+
+                        if (!ticket.exists()) {
+                            ticket.createNewFile();
+                            System.out.println("Ticket guardado en: " + ticket.getPath());
+                        }
+
+                        FileWriter fw = new FileWriter(ticket);
+                        BufferedWriter bw = new BufferedWriter(fw);
+
+                        bw.write("Nombre: " + NombreTitular);
+                        bw.newLine();
+                        bw.write("DNI: " + DNI);
+                        bw.newLine();
+                        bw.write("Numero de Tarjeta: " + NumeroTarjeta.substring(0, 4) + " **** **** " + NumeroTarjeta.substring(12, 16));
+                        bw.newLine();
+                        bw.write("Numero de Habitacion: " + habitacion.getNumHabitacion());
+                        bw.newLine();
+                        bw.write("Tipo de Habitacion: " + habitacion.getTipoHabitacion());
+                        bw.newLine();
+                        bw.write("Fecha de Entrada: " + fechaLlegadaa);
+                        bw.newLine();
+                        bw.write("Fecha de Salida: " + fechaSalidaa);
+                        bw.newLine();
+                        bw.write("Precio habitacion (" + dias +" dias): " + habitacion.getPrecio()*dias + "€");
+                        bw.newLine();
+                        bw.write("Servicios extra: ");
+                        bw.newLine();
+                        if(extras.isBar()){
+                            bw.write("  Bar: " + extras.getPrecioBar() + "€");
+                            bw.newLine();
+                        }
+                        if(extras.isRestaurante()){
+                            bw.write("  Restaurante: " + extras.getPrecioRestaurante()+ "€");
+                            bw.newLine();
+                        }
+                        if(extras.isActividades()){
+                            bw.write("  Actividades: " + extras.getPrecioActividades()+ "€");
+                            bw.newLine();
+                        }
+                        if(extras.isGuarderia()){
+                            bw.write("  Guarderia: " + extras.getPrecioGuarderia()+ "€");
+                            bw.newLine();
+                        }
+                        if(extras.isCajaFuerte()){
+                            bw.write("  Caja Fuerte: " + extras.getPrecioCajaFuerte()+ "€");
+                            bw.newLine();
+                        }
+                        bw.write("Total extras: " + extras.precioExtra() + "€");
+                        bw.newLine();
+                        if(extras.isDescuentoFamiliaN()){
+                            bw.write("Precio final + descuento familia numerosa: " + ((habitacion.getPrecio()*dias + extras.precioExtra())*extras.porcentDescuentoFamiliaN) + "€");
+                        }else{
+                            bw.write("Precio final: " + (habitacion.getPrecio()*dias + extras.precioExtra()) + "€");
+                        }
+                        bw.newLine();
+                        bw.newLine();
+                        bw.write("Gracias por su reserva");
+                        bw.close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se imprimira ticket");
+                    }
 
                     //SQL = "INSERT INTO Reserva (DNI, NumPlazaParking, NumHabitacion, ServicioExtra1, ServicioExtra2, ServicioExtra3, ServicioExtra4, ServicioExtra5, Descuento, PrecioTotal, FechaLlegada, FechaSalida) VALUES ('"+DNIR+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
 
-                } catch (Exception ex) {
+                }catch(Exception ex) {
                     System.out.println(ex);
-                    JOptionPane.showMessageDialog(null, "Error: No se ha podido insertar los datos");
+                    JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
 
 
             }
-
-
-            double precio = 0;
-            try {
-                Statement miStatement = ConexionDB.miConexion.createStatement();
-                ResultSet miResultSet = miStatement.executeQuery("SELECT Precio FROM Habitaciones where NumHabitacion like '"+numHabitacion.getNumHabitacion()+"'");
-                if(miResultSet.next()){
-                    precio = miResultSet.getDouble("Precio");
-                }
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
-
-
-            Date startDate = calendarioLlegada.getDate();
-            Date endDate = calendarioSalida.getDate();
-            int diffDays = 0;
-
-            if (startDate != null && endDate != null) {
-                Calendar startCalendar = Calendar.getInstance();
-                startCalendar.setTime(startDate);
-
-                Calendar endCalendar = Calendar.getInstance();
-                endCalendar.setTime(endDate);
-
-                long diff = endCalendar.getTimeInMillis() - startCalendar.getTimeInMillis();
-                diffDays = (int) (diff / (24 * 60 * 60 * 1000));
-
-                System.out.println(Integer.toString(diffDays));
-            }
-
-            double preciototalnoches = diffDays * precio;
-
-            System.out.println(preciototalnoches);
-
-
-
-
-
         });
     }
+
+
+
 }
-
-

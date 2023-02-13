@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -131,8 +132,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
         setJMenuBar(barraMenu);
 
-        calendarioSalida.setDateFormatString("EEE MMM dd HH:mm:ss z yyyy");
-        calendarioLlegada.setDateFormatString("EEE MMM dd HH:mm:ss z yyyy");
+        calendarioSalida.setDateFormatString("dd/MM/yyyy");
+        calendarioLlegada.setDateFormatString("dd/MM/yyyy");
 
 
         menuHorarios.addActionListener(this);
@@ -156,7 +157,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         miPanel.add(comboTipoParking);
         miPanel.add(buscar);
         add(miPanel);
-
 
         buscar.setVisible(true);
         labelTipoParking.setVisible(false);
@@ -196,16 +196,16 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         if(e.getSource()==buscar){
             String tipoHabitacion = (String) comboTipo.getSelectedItem();
             int numCamasHabitacion = (int) numCamas.getValue();
-            String fechaLlegada = calendarioLlegada.getDate().toString();
-            String fechaSalida = calendarioSalida.getDate().toString();
+            String fechaLlegada = DateFormat.getDateInstance().format(calendarioLlegada.getDate());
+            String fechaSalida = DateFormat.getDateInstance().format(calendarioSalida.getDate());
+            int dias = (int) ((calendarioSalida.getDate().getTime() - calendarioLlegada.getDate().getTime()) / 86400000);
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
             HabitacionesDisponibles ventanaHabitaciones = null;
 
             try {
-                ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,calendarioSalida,calendarioLlegada, tipoParking);
-                new InformacionPago(null, null,  calendarioSalida, calendarioLlegada, null);
-            } catch (SQLException | ParseException ex) {
+                ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, dias, tipoParking);
+            } catch (SQLException ex) {
 
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");
 
