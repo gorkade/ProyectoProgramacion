@@ -1,0 +1,16 @@
+Nombre: Hjhnaod
+DNI: 35271745E
+Numero de Tarjeta: 1234 **** **** 1234
+Numero de Habitacion: 8
+Tipo de Habitacion: Sencilla
+Fecha de Entrada: 15 de febr. 2023
+Fecha de Salida: 17 de febr. 2023
+Precio habitacion (2 dias): 500.0€
+Servicios extra: 
+  Bar: 10.0€
+  Cafeteria: 30.0€
+  Guarderia: 40.0€
+Total extras: 80.0€
+Precio final + descuento familia numerosa: 58.0€
+
+Gracias por su reserva
