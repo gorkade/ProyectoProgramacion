@@ -8,4 +8,14 @@ public class Main {
         miFrame.setResizable(true);
 
     }
+
+    public static boolean verificarCamposVacios(String... campos) {
+        //Recoremos cada TextField que pasemos por argumento
+        for (String campo : campos) {
+            if (campo.trim().isEmpty()) {
+                return true; // Si algún campo está vacío, retorna verdadero
+            }
+        }
+        return false; // Si ningún campo está vacío, retorna falso
+    }
 }

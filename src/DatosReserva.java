@@ -172,6 +172,7 @@ public class DatosReserva extends JFrame {
                 Cliente cliente = new Cliente(nombre, apellidos, nif, direccion, telefono, email, ciudad, cp, pais);
 
                 try {
+
                     //Conectamos a la base de datos y realizamos una consulta para verificar si ese cliente ya existe
                     Statement miStatement = ConexionDB.miConexion.createStatement();
                     ResultSet miResultSet = miStatement.executeQuery("SELECT * FROM Cliente where DNI like '"+nif+"'");
@@ -179,19 +180,26 @@ public class DatosReserva extends JFrame {
                         JOptionPane.showMessageDialog(null, "El cliente ya existe");
                     }else {
 
-                        //Intrucccion para añadir el cliente a la base de datos
-                        String instruccionSQL = "INSERT INTO Cliente(DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('"+nif+"','"+nombre+"','"+apellidos+"','"+telefono+"','"+email+"','"+direccion+"','"+pais+"','"+ciudad+"','"+cp+"')";
-                        miStatement.executeUpdate(instruccionSQL);
-                        JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
-                        ServiciosExtra serviciosExtra = new ServiciosExtra(habitacion, cliente, fechaLlegada, fechaSalida, dias);
-                        serviciosExtra.setVisible(true);
+                        if (Main.verificarCamposVacios(nombre,apellidos,nif,direccion,telefono,email,ciudad,cp,pais)){
+
+                            JOptionPane.showMessageDialog(null,"No has introducido datos");
+                        }else {
+                            //Intrucccion para añadir el cliente a la base de datos
+                            String instruccionSQL = "INSERT INTO Cliente(DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('" + nif + "','" + nombre + "','" + apellidos + "','" + telefono + "','" + email + "','" + direccion + "','" + pais + "','" + ciudad + "','" + cp + "')";
+                            miStatement.executeUpdate(instruccionSQL);
+                            JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
+                            dispose();
+                            ServiciosExtra serviciosExtra = new ServiciosExtra(habitacion, cliente, fechaLlegada, fechaSalida, dias);
+                            serviciosExtra.setVisible(true);
+
+                        }
                     }
                 }catch(Exception ex) {
                     System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
 
-                dispose();
+
             }
 
 
@@ -201,6 +209,9 @@ public class DatosReserva extends JFrame {
 
 
     }
+
+
+
 
 
 }
