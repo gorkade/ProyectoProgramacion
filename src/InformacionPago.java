@@ -118,11 +118,14 @@ public class InformacionPago extends JFrame {
 
 
                 try {
-                    //Conectamos a la base de datos
-                    Statement miStatement = ConexionDB.miConexion.createStatement();
-                    String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('"+DNI+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
-                    miStatement.executeUpdate(SQL);
-
+                    if(Main.verificarCamposVacios(NombreTitular,DNI,NumeroTarjeta,FechaCaducidadd,CVVP)){
+                        JOptionPane.showMessageDialog(null,"No has introducido tus datos");
+                    }else {
+                        //Conectamos a la base de datos
+                        Statement miStatement = ConexionDB.miConexion.createStatement();
+                        String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
+                        miStatement.executeUpdate(SQL);
+                    }
                     if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {
                         JOptionPane.showMessageDialog(null, "Imprimiendo ticket");
 

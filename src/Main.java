@@ -10,7 +10,7 @@ public class Main {
     }
 
     public static boolean verificarCamposVacios(String... campos) {
-        //Recoremos cada TextField que pasemos por argumento
+        //Recoremos cada String que pasemos por argumento
         for (String campo : campos) {
             if (campo.trim().isEmpty()) {
                 return true; // Si algún campo está vacío, retorna verdadero
