@@ -14,8 +14,12 @@ public class Parking extends JFrame {
     private boolean[] parkingSpaceAvailability;
     private int numberOfSpaces;
 
+    Statement miStatement= null;
+
     public Parking(int numberOfSpaces, Habitacion habitacion, String fechaLlegada, String fechaSalida,  int dias) {
+
         super("Parking Lot");
+
 
         this.numberOfSpaces = numberOfSpaces;
         ImageIcon icon = new ImageIcon("C:\\Users\\DAM.DESKTOP-GO77QJ7\\IdeaProjects\\parking\\wheelchair.png");
@@ -32,12 +36,13 @@ public class Parking extends JFrame {
         parkingSpaces = new JButton[numberOfSpaces];
         parkingSpaceAvailability = new boolean[numberOfSpaces];
 
-        // En vez de cargar los items de el numberofSpaces, tenemos que realizar una carga de datos.
-        Statement seleccionPlazas = null;
-        String sql = "SELECT * FROM PARKING ORDER BY NumPlaza DESC";
+
+
         try {
-            seleccionPlazas = ConexionDB.miConexion.createStatement();
-            ResultSet plazas = seleccionPlazas.executeQuery(sql);
+            // En vez de cargar los items de el numberofSpaces, tenemos que realizar una carga de datos.
+            miStatement = ConexionDB.miConexion.createStatement();
+            String sql = "SELECT * FROM Parking ORDER BY NumPlaza DESC";
+            ResultSet plazas = miStatement.executeQuery(sql);
             int i = -1;
             while (plazas.next()) {
                 i++;
@@ -68,22 +73,22 @@ public class Parking extends JFrame {
                         /*La consulta SQL es la siguiente si se bloquea esa plaza de parking, hacemos un update del parking*/
                         //Comprobar si el boolean del SQL se lo traga
                         if (parkingSpaceAvailability[spaceNumber]) {
-                            Statement miStatement = null;
+
                             try {
                                 //Ejecutamos la consulta, pones en ocupado la plaza
                                 miStatement = ConexionDB.miConexion.createStatement();
-                                miStatement.executeQuery("UPDATE Parking set ocupado ="+true+" where id = "+spaceNumber);
+                                miStatement.executeQuery("UPDATE Parking set ocupado = 1 where NumPlaza = "+spaceNumber);
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
                             }
                             button.setBackground(Color.RED);
                             parkingSpaceAvailability[spaceNumber] = false;
                         } else {
-                            Statement miStatement = null;
+
                             try {
                                 //Ejecutamos la consulta, pones en desocupado la plaza
                                 miStatement = ConexionDB.miConexion.createStatement();
-                                miStatement.executeQuery("UPDATE Parking set ocupado ="+false+" where id = "+spaceNumber);
+                                miStatement.executeQuery("UPDATE Parking set ocupado = 0 where NumPlaza = "+spaceNumber);
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
                             }
