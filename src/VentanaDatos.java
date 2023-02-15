@@ -123,10 +123,9 @@ public class VentanaDatos extends JFrame implements ActionListener {
 
                     if (!rs.next()) {
                         st.executeUpdate("INSERT INTO Empleado VALUES ('" + DNI + "','" + NumEmpleado + "','" + Nombre + "','" + Apellido + "','" + HoraInicio + "','" + HoraFinal + "','" + Zona + "','" + TipoEmpleado + "','" + Salario + "')");
-
-                        JOptionPane.showMessageDialog(null, "Empleado añadido correctamente");
                     }
                 }
+                JOptionPane.showMessageDialog(null, "Empleados leídos y añadidos correctamente");
 
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
