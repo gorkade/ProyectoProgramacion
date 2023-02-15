@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -129,65 +130,9 @@ public class InformacionPago extends JFrame {
                     if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {
                         JOptionPane.showMessageDialog(null, "Imprimiendo ticket");
 
-                        File ticket = new File("ticket.txt");
+                        //Generamos el ticket de la reserva
+                        generarTicket(habitacion, cliente, fechaLlegadaa, fechaSalidaa, extras, dias,  DNI, NombreTitular, NumeroTarjeta);
 
-                        if (!ticket.exists()) {
-                            ticket.createNewFile();
-                            System.out.println("Ticket guardado en: " + ticket.getPath());
-                        }
-
-                        FileWriter fw = new FileWriter(ticket);
-                        BufferedWriter bw = new BufferedWriter(fw);
-
-                        bw.write("Nombre: " + NombreTitular);
-                        bw.newLine();
-                        bw.write("DNI: " + DNI);
-                        bw.newLine();
-                        bw.write("Numero de Tarjeta: " + NumeroTarjeta.substring(0, 4) + " **** **** " + NumeroTarjeta.substring(12, 16));
-                        bw.newLine();
-                        bw.write("Numero de Habitacion: " + habitacion.getNumHabitacion());
-                        bw.newLine();
-                        bw.write("Tipo de Habitacion: " + habitacion.getTipoHabitacion());
-                        bw.newLine();
-                        bw.write("Fecha de Entrada: " + fechaLlegadaa);
-                        bw.newLine();
-                        bw.write("Fecha de Salida: " + fechaSalidaa);
-                        bw.newLine();
-                        bw.write("Precio habitacion (" + dias +" dias): " + habitacion.getPrecio()*dias + "€");
-                        bw.newLine();
-                        bw.write("Servicios extra: ");
-                        bw.newLine();
-                        if(extras.isBar()){
-                            bw.write("  Bar: " + extras.getPrecioBar() + "€");
-                            bw.newLine();
-                        }
-                        if(extras.isRestaurante()){
-                            bw.write("  Restaurante: " + extras.getPrecioRestaurante()+ "€");
-                            bw.newLine();
-                        }
-                        if(extras.isActividades()){
-                            bw.write("  Actividades: " + extras.getPrecioActividades()+ "€");
-                            bw.newLine();
-                        }
-                        if(extras.isGuarderia()){
-                            bw.write("  Guarderia: " + extras.getPrecioGuarderia()+ "€");
-                            bw.newLine();
-                        }
-                        if(extras.isCajaFuerte()){
-                            bw.write("  Caja Fuerte: " + extras.getPrecioCajaFuerte()+ "€");
-                            bw.newLine();
-                        }
-                        bw.write("Total extras: " + extras.precioExtra() + "€");
-                        bw.newLine();
-                        if(extras.isDescuentoFamiliaN()){
-                            bw.write("Precio final + descuento familia numerosa: " + ((habitacion.getPrecio()*dias + extras.precioExtra())*extras.porcentDescuentoFamiliaN) + "€");
-                        }else{
-                            bw.write("Precio final: " + (habitacion.getPrecio()*dias + extras.precioExtra()) + "€");
-                        }
-                        bw.newLine();
-                        bw.newLine();
-                        bw.write("Gracias por su reserva");
-                        bw.close();
                     } else {
                         JOptionPane.showMessageDialog(null, "No se imprimira ticket");
                     }
@@ -202,6 +147,73 @@ public class InformacionPago extends JFrame {
 
             }
         });
+    }
+
+    public void generarTicket(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias, String DNI, String NombreTitular, String NumeroTarjeta) throws IOException {
+        File ticket = new File("ticket.txt");
+
+        if (ticket.exists()) {
+            ticket.delete();
+        }
+
+        ticket.createNewFile();
+        JOptionPane.showMessageDialog(null, "Ticket guardado en: " + ticket.getAbsolutePath());
+
+        FileWriter fw = new FileWriter(ticket);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        bw.write("Nombre Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
+        bw.newLine();
+        bw.write("DNI: " + DNI);
+        bw.newLine();
+        bw.write("Nombre Titular Tarjeta: " + NombreTitular);
+        bw.newLine();
+        bw.write("Numero de Tarjeta: " + NumeroTarjeta.substring(0, 4) + " **** **** " + NumeroTarjeta.substring(12, 16));
+        bw.newLine();
+        bw.write("Numero de Habitacion: " + habitacion.getNumHabitacion());
+        bw.newLine();
+        bw.write("Tipo de Habitacion: " + habitacion.getTipoHabitacion());
+        bw.newLine();
+        bw.write("Fecha de Entrada: " + fechaLlegadaa);
+        bw.newLine();
+        bw.write("Fecha de Salida: " + fechaSalidaa);
+        bw.newLine();
+        bw.write("Precio habitacion (" + dias +" dias): " + habitacion.getPrecio()*dias + "€");
+        bw.newLine();
+        bw.write("Servicios extra: ");
+        bw.newLine();
+        if(extras.isBar()){
+            bw.write("  Bar: " + extras.getPrecioBar() + "€");
+            bw.newLine();
+        }
+        if(extras.isRestaurante()){
+            bw.write("  Restaurante: " + extras.getPrecioRestaurante()+ "€");
+            bw.newLine();
+        }
+        if(extras.isActividades()){
+            bw.write("  Actividades: " + extras.getPrecioActividades()+ "€");
+            bw.newLine();
+        }
+        if(extras.isGuarderia()){
+            bw.write("  Guarderia: " + extras.getPrecioGuarderia()+ "€");
+            bw.newLine();
+        }
+        if(extras.isCajaFuerte()){
+            bw.write("  Caja Fuerte: " + extras.getPrecioCajaFuerte()+ "€");
+            bw.newLine();
+        }
+        bw.write("Total extras: " + extras.precioExtra() + "€");
+        bw.newLine();
+        bw.newLine();
+        if(extras.isDescuentoFamiliaN()){
+            bw.write("Precio final + descuento familia numerosa: " + (((habitacion.getPrecio()*dias) + extras.precioExtra())-(((habitacion.getPrecio()*dias) + extras.precioExtra())*extras.porcentDescuentoFamiliaN)) + "€");
+        }else{
+            bw.write("Precio final: " + ((habitacion.getPrecio()*dias) + extras.precioExtra()) + "€");
+        }
+        bw.newLine();
+        bw.newLine();
+        bw.write("Gracias por su reserva");
+        bw.close();
     }
 
 
