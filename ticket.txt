@@ -1,18 +1,17 @@
-Nombre: Ramon Martinez
-DNI: 54545454L
-Numero de Tarjeta: 6543 **** **** 9876
-Numero de Habitacion: 7
-Tipo de Habitacion: Matrimonial
-Fecha de Entrada: 17 de febr. 2023
-Fecha de Salida: 19 de febr. 2023
-Precio habitacion (2 dias): 1300.0€
+Nombre Cliente: Fredy Mercury
+DNI: 09876543A
+Nombre Titular Tarjeta: Fredy
+Numero de Tarjeta: 2122 **** **** 9890
+Numero de Habitacion: 9
+Tipo de Habitacion: Sencilla
+Fecha de Entrada: 15 de febr. 2023
+Fecha de Salida: 17 de febr. 2023
+Precio habitacion (2 dias): 600.0€
 Servicios extra: 
   Bar: 10.0€
   Restaurante: 30.0€
-  Actividades: 40.0€
-  Caja Fuerte: 5.0€
-Total extras: 85.0€
+Total extras: 40.0€
 
-Precio final + descuento familia numerosa: 1246.5€
+Precio final: 640.0€
 
 Gracias por su reserva

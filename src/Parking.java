@@ -23,7 +23,6 @@ public class Parking extends JFrame {
 
         this.numberOfSpaces = numberOfSpaces;
         ImageIcon icon = new ImageIcon("C:\\Users\\DAM.DESKTOP-GO77QJ7\\IdeaProjects\\parking\\wheelchair.png");
-        ConexionDB conexion = new ConexionDB(null);
 
         panel = new JPanel();
         JLabel label = new JLabel("Plazas Parking disponibles:");
@@ -43,7 +42,7 @@ public class Parking extends JFrame {
             miStatement = ConexionDB.miConexion.createStatement();
             String sql = "SELECT * FROM Parking ORDER BY NumPlaza DESC";
             ResultSet plazas = miStatement.executeQuery(sql);
-            int i = -1;
+            int i = 0;
             while (plazas.next()) {
                 i++;
 
@@ -77,7 +76,7 @@ public class Parking extends JFrame {
                             try {
                                 //Ejecutamos la consulta, pones en ocupado la plaza
                                 miStatement = ConexionDB.miConexion.createStatement();
-                                miStatement.executeQuery("UPDATE Parking set ocupado = 1 where NumPlaza = "+spaceNumber);
+                                miStatement.executeUpdate("UPDATE Parking set ocupado = 1 where NumPlaza = "+spaceNumber+"");
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -88,7 +87,7 @@ public class Parking extends JFrame {
                             try {
                                 //Ejecutamos la consulta, pones en desocupado la plaza
                                 miStatement = ConexionDB.miConexion.createStatement();
-                                miStatement.executeQuery("UPDATE Parking set ocupado = 0 where NumPlaza = "+spaceNumber);
+                                miStatement.executeUpdate("UPDATE Parking set ocupado = 0 where NumPlaza = "+spaceNumber+"");
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
                             }
