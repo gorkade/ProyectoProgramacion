@@ -3,6 +3,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class Parking extends JFrame {
@@ -16,6 +19,7 @@ public class Parking extends JFrame {
 
         this.numberOfSpaces = numberOfSpaces;
         ImageIcon icon = new ImageIcon("C:\\Users\\DAM.DESKTOP-GO77QJ7\\IdeaProjects\\parking\\wheelchair.png");
+        ConexionDB conexion = new ConexionDB(null);
 
         panel = new JPanel();
         JLabel label = new JLabel("Plazas Parking disponibles:");
@@ -28,39 +32,73 @@ public class Parking extends JFrame {
         parkingSpaces = new JButton[numberOfSpaces];
         parkingSpaceAvailability = new boolean[numberOfSpaces];
 
+        // En vez de cargar los items de el numberofSpaces, tenemos que realizar una carga de datos.
+        Statement seleccionPlazas = null;
+        String sql = "SELECT * FROM PARKING ORDER BY NumPlaza DESC";
+        try {
+            seleccionPlazas = ConexionDB.miConexion.createStatement();
+            ResultSet plazas = seleccionPlazas.executeQuery(sql);
+            int i = -1;
+            while (plazas.next()) {
+                i++;
 
-        for (int i = 0; i < numberOfSpaces; i++) {
-
-            parkingSpaces[i] = new JButton(String.valueOf(i + 1));
-            if (i == 0 || i == 1 || i == 2 || i == 3) {
-                parkingSpaces[i].setIcon(icon);
-
-            }
-            parkingSpaces[i].setPreferredSize(new Dimension(100, 40));
-
-            parkingSpaces[i].setBackground(Color.GREEN);
-            parkingSpaceAvailability[i] = true;
-            parkingSpaces[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JButton button = (JButton) e.getSource();
-                    int spaceNumber = Integer.parseInt(button.getText()) - 1;
-
-                    if (parkingSpaceAvailability[spaceNumber]) {
-                        button.setBackground(Color.RED);
-                        parkingSpaceAvailability[spaceNumber] = false;
-                    } else {
-                        button.setBackground(Color.GREEN);
-                        parkingSpaceAvailability[spaceNumber] = true;
-                    }
+                parkingSpaces[i] = new JButton(String.valueOf(i));
+                if(plazas.getInt("ocupado")==0){
+                    parkingSpaces[i].setBackground(Color.GREEN);
+                    parkingSpaceAvailability[i] = true;
                 }
-            });
-            panel.add(parkingSpaces[i]);
+                else{
+                    parkingSpaces[i].setBackground(Color.RED);
+                    parkingSpaceAvailability[i] = false;
+                }
+                if (i == 0 || i == 1 || i == 2 || i == 3) {
+                    parkingSpaces[i].setIcon(icon);
 
+                }
+                parkingSpaces[i].setPreferredSize(new Dimension(100, 40));
+
+                parkingSpaces[i].setBackground(Color.GREEN);
+
+                parkingSpaces[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JButton button = (JButton) e.getSource();
+                        int spaceNumber = Integer.parseInt(button.getText());
+                        /*AQUI LA LÓGICA ES LA SIGUIENTE, COGE LOS DATOS DEL BOTON QUE HACER LA ACCIÓN, UNA VEZ REALIZA LA ACCIÓN EJECUTA UNA CONSULTA*/
+                        /*La consulta SQL es la siguiente si se bloquea esa plaza de parking, hacemos un update del parking*/
+                        //Comprobar si el boolean del SQL se lo traga
+                        if (parkingSpaceAvailability[spaceNumber]) {
+                            Statement miStatement = null;
+                            try {
+                                //Ejecutamos la consulta, pones en ocupado la plaza
+                                miStatement = ConexionDB.miConexion.createStatement();
+                                miStatement.executeQuery("UPDATE Parking set ocupado ="+true+" where id = "+spaceNumber);
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            button.setBackground(Color.RED);
+                            parkingSpaceAvailability[spaceNumber] = false;
+                        } else {
+                            Statement miStatement = null;
+                            try {
+                                //Ejecutamos la consulta, pones en desocupado la plaza
+                                miStatement = ConexionDB.miConexion.createStatement();
+                                miStatement.executeQuery("UPDATE Parking set ocupado ="+false+" where id = "+spaceNumber);
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            button.setBackground(Color.GREEN);
+                            parkingSpaceAvailability[spaceNumber] = true;
+                        }
+                    }
+                });
+                panel.add(parkingSpaces[i]);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         add(label, BorderLayout.NORTH);
-
 
         //todo Hacemos los botones inferiores para que se vean displayeados en la parte inferior de la pantalla
         JPanel botonesinferiores = new JPanel();
