@@ -147,6 +147,7 @@ public class VentanaDatos extends JFrame implements ActionListener {
         miPanel.add(consultar);
         add(miPanel);
 
+
         labelDatos.setVisible(false);
     }
 

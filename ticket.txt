@@ -1,17 +1,18 @@
-Nombre Cliente: Fredy Mercury
-DNI: 09876543A
-Nombre Titular Tarjeta: Fredy
-Numero de Tarjeta: 2122 **** **** 9890
-Numero de Habitacion: 9
+Nombre Cliente: Ejemplo Ejemplo
+DNI: 09876543P
+Nombre Titular Tarjeta: Ejemplo Martinez
+Numero de Tarjeta: 6473 **** **** 9876
+Numero de Habitacion: 2
 Tipo de Habitacion: Sencilla
-Fecha de Entrada: 15 de febr. 2023
-Fecha de Salida: 17 de febr. 2023
+Fecha de Entrada: 17 de febr. 2023
+Fecha de Salida: 19 de febr. 2023
 Precio habitacion (2 dias): 600.0€
 Servicios extra: 
   Bar: 10.0€
   Restaurante: 30.0€
-Total extras: 40.0€
+  Guarderia: 40.0€
+Total extras: 80.0€
 
-Precio final: 640.0€
+Precio final + descuento familia numerosa: 612.0€
 
 Gracias por su reserva
