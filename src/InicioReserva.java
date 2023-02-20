@@ -12,6 +12,9 @@ import java.util.Date;
 
 public class InicioReserva extends JFrame implements ActionListener {
 
+    //Clase para guardar datos iniciales de la reserva
+
+    //Atributos
     private JMenuItem menuHorarios;
     private JMenuItem menuDatos;
 
@@ -22,8 +25,6 @@ public class InicioReserva extends JFrame implements ActionListener {
 
     private JComboBox comboTipo, comboTipoParking;
     private JDateChooser calendarioLlegada;
-    public static String fechaLlegadaa;
-    public static String fechaSalidaa;
     private JDateChooser calendarioSalida;
 
     private JLabel labelTipoParking;
@@ -34,6 +35,7 @@ public class InicioReserva extends JFrame implements ActionListener {
 
     public InicioReserva() //constructor
     {
+        //llamamos a método para crear la ventana y creamos el panel con sus componentes y la configuración posterior
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Reserva");
@@ -48,11 +50,7 @@ public class InicioReserva extends JFrame implements ActionListener {
     }
 
     public void iniciarComponentes() {
-
-        /**/
-
         /*Inicia instancias de los componentes*/
-        //contenedor de los componentes
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
         JMenuItem menuReserva = new JMenuItem("Reserva");
@@ -71,7 +69,6 @@ public class InicioReserva extends JFrame implements ActionListener {
 
         numCamas = new JSpinner();
 
-        /*labels de los menus para mostrar en pantalla*/
         JLabel titulo = new JLabel();
         JLabel labelTipo = new JLabel();
         JLabel labelNumCamas = new JLabel();
@@ -86,7 +83,7 @@ public class InicioReserva extends JFrame implements ActionListener {
 
         /*Fin instancias de los componentes*/
 
-        /*Labels*/
+        //Configuramos la posicion y los textos de los componentes
         titulo.setBounds(10,0,200,30);
         titulo.setText("RESERVA DE HABITACIONES");
 
@@ -129,19 +126,24 @@ public class InicioReserva extends JFrame implements ActionListener {
         menuDatos.setText("Consultar Datos Cliente/Empleado");
         barraMenu.add(menuDatos);
 
+        //añadimos la barra de menu superior a la ventana
         setJMenuBar(barraMenu);
 
+        //Le damos el formato de fecha a los calendarios de llegada y salida
         calendarioSalida.setDateFormatString("dd/MM/yyyy");
         calendarioLlegada.setDateFormatString("dd/MM/yyyy");
 
 
+        //Añadimos los Listener a los componentes
         menuHorarios.addActionListener(this);
         menuDatos.addActionListener(this);
         reservaParking.addActionListener(this);
         buscar.addActionListener(this);
+
         calendarioLlegada.getDateEditor().addPropertyChangeListener(
                 evt -> calendarioSalida.setMinSelectableDate(calendarioLlegada.getDate()));
 
+        //Añadimos los componentes al panel
         miPanel.add(titulo);
         miPanel.add(labelTipo);
         miPanel.add(labelNumCamas);
@@ -158,6 +160,8 @@ public class InicioReserva extends JFrame implements ActionListener {
         add(miPanel);
 
         buscar.setVisible(true);
+
+        //Escondemos el label y el combo de tipo de parking
         labelTipoParking.setVisible(false);
         comboTipoParking.setVisible(false);
     }
@@ -166,9 +170,11 @@ public class InicioReserva extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==reservaParking){
             if(reservaParking.isSelected()){
+                //Si se selecciona el checkbox de parking mostramos el label y el combo de tipo de parking
                 labelTipoParking.setVisible(true);
                 comboTipoParking.setVisible(true);
             }else{
+                //Si se deselecciona el checkbox de parking escondemos el label y el combo de tipo de parking
                 labelTipoParking.setVisible(false);
                 comboTipoParking.setVisible(false);
                 comboTipoParking.setSelectedIndex(0);
@@ -176,8 +182,7 @@ public class InicioReserva extends JFrame implements ActionListener {
         }
 
         if(e.getSource()==menuHorarios){
-
-
+            //Si se pulsa el menu de horarios se abre la ventana de horarios
             VentanaHorarios ventanaHorarios = new VentanaHorarios();
 
             ventanaHorarios.setVisible(true);
@@ -186,6 +191,7 @@ public class InicioReserva extends JFrame implements ActionListener {
         }
 
         if(e.getSource()==menuDatos){
+            //Si se pulsa el menu de datos se abre la ventana de datos
             VentanaDatos ventanaDatos = new VentanaDatos();
             ventanaDatos.setVisible(true);
 
@@ -193,25 +199,29 @@ public class InicioReserva extends JFrame implements ActionListener {
         }
 
         if(e.getSource()==buscar){
+            //Guardamos los datos seleccionados en las variables
             String tipoHabitacion = (String) comboTipo.getSelectedItem();
             int numCamasHabitacion = (int) numCamas.getValue();
             String fechaLlegada = DateFormat.getDateInstance().format(calendarioLlegada.getDate());
             String fechaSalida = DateFormat.getDateInstance().format(calendarioSalida.getDate());
+
+            //Calculamos el número de dias de estancia
             int dias = (int) ((calendarioSalida.getDate().getTime() - calendarioLlegada.getDate().getTime()) / 86400000);
             String tipoParking = (String) comboTipoParking.getSelectedItem();
 
             HabitacionesDisponibles ventanaHabitaciones = null;
 
             try {
+                //Creamos la ventana de habitaciones disponibles pasando como paramentros los datos seleccionados y los dias de estancia
                 ventanaHabitaciones = new HabitacionesDisponibles(tipoHabitacion,numCamasHabitacion,fechaLlegada,fechaSalida, dias, tipoParking);
             } catch (SQLException ex) {
-
+                //Si hay un error en la conexion con la base de datos se muestra un mensaje de error
                 JOptionPane.showMessageDialog(null,"Error en la base de datos");
 
             }
 
+            //Abrimos la nueva ventana y cerramos la actual
             ventanaHabitaciones.setVisible(true);
-
             this.setVisible(false);
         }
     }

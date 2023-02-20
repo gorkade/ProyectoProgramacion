@@ -2,8 +2,11 @@ import java.text.ParseException;
 
 public class Main {
     public static void main(String[] args) throws ParseException {
+        //Conectamos con la base de datos
         ConexionDB.ConectarDB();
-        InicioReserva miFrame= new InicioReserva();
+
+        //Iniciamos el programa con la ventana inicial
+        PantallaInicial miFrame= new PantallaInicial();
         miFrame.setVisible(true);
         miFrame.setResizable(true);
 
