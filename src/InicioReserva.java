@@ -6,12 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 
 
 
-public class VentanaPrincipal extends JFrame implements ActionListener {
+public class InicioReserva extends JFrame implements ActionListener {
 
     private JMenuItem menuHorarios;
     private JMenuItem menuDatos;
@@ -33,7 +32,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
     private Button buscar;
 
-    public VentanaPrincipal() //constructor
+    public InicioReserva() //constructor
     {
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo

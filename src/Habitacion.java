@@ -1,4 +1,7 @@
 public class Habitacion {
+    //Clase Habitacion para guardar la informacion de la habitacion para la reserva
+
+    //Atributos
     int numHabitacion;
     int numCamas;
     String tipoHabitacion;
@@ -6,6 +9,7 @@ public class Habitacion {
     double precio;
     String dniEmpleado;
 
+    //Constructores con y sin parametros
     public Habitacion() {
     }
 
@@ -18,6 +22,7 @@ public class Habitacion {
         this.dniEmpleado = dniEmpleado;
     }
 
+    //Getters y Setters
     public int getNumHabitacion() {
         return numHabitacion;
     }

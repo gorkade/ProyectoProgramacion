@@ -118,7 +118,7 @@ public class VentanaHorarios extends JFrame implements ActionListener{
         }
 
         if (e.getSource() == menuReserva) {
-            VentanaPrincipal miFrame= new VentanaPrincipal();
+            InicioReserva miFrame= new InicioReserva();
             miFrame.setVisible(true);
             this.setVisible(false);
         }

@@ -1,4 +1,7 @@
 public class Cliente {
+    //Clase Cliente para guardar la informacion de los clientes
+
+    // Atributos
     String nombre;
     String apellidos;
     String nif;
@@ -9,6 +12,7 @@ public class Cliente {
     String cp;
     String pais;
 
+    //Constructores con y sin parametros
     public Cliente() {
     }
 
@@ -24,6 +28,7 @@ public class Cliente {
         this.pais = pais;
     }
 
+    //Getters y Setters
     public String getNombre() {
         return nombre;
     }

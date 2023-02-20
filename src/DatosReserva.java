@@ -7,13 +7,18 @@ import java.sql.Statement;
 
 public class DatosReserva extends JFrame {
 
-    /*items del menu Tipo*/
+    //Esta clase genera la ventana para guardar los datos del cliente para realizar la reserva.
+
+    //variables
     private JComboBox comboPais;
     public static String DNI;
 
     String[] pais = {"Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue"};
+
+    //constructor
     public DatosReserva(Habitacion habitacion, String fechaLlegada, String fechaSalida, int dias)//constructor
     {
+        //llamamos a método para crear la ventana y creamos el panel con sus componentes y la configuración posterior
         iniciarComponentes(habitacion, fechaLlegada, fechaSalida, dias);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú de Reserva Ejemplo : Titulo De La ventana");
@@ -33,14 +38,11 @@ public class DatosReserva extends JFrame {
     //Metodo que genera los componentes de la ventana
     private void iniciarComponentes(Habitacion habitacion, String fechaLlegada, String fechaSalida, int dias) {
 
-        /**/
-
-
+        //nos conectamos a la base de datos
         ConexionDB.ConectarDB();
 
 
         /*Inicia instancias de los componentes*/
-        //contenedor de los componentes
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
         JMenu menuReserva = new JMenu("Reserva");
@@ -58,7 +60,6 @@ public class DatosReserva extends JFrame {
         JTextField CP = new JTextField();
         JTextField Email = new JTextField();
 
-        /*labels de los menus para mostrar en pantalla*/
         JLabel labelNombre = new JLabel();
         JLabel labelApellidos = new JLabel();
         JLabel labelNIF = new JLabel();
@@ -74,7 +75,7 @@ public class DatosReserva extends JFrame {
         Button enviar = new Button("Enviar");
         /*Fin instancias de los componentes*/
 
-        /*Labels*/
+        //Configuramos la posicion y los textos de los componentes
         labelNombre.setBounds(10,0,200,30);
         labelNombre.setText("Nombre : ");
         Nombre.setBounds(70,5, 100, 20);
@@ -114,7 +115,7 @@ public class DatosReserva extends JFrame {
 
         enviar.setBounds(550, 250, 100, 30);
 
-        /*Agrega los Menus de la barra de Menu*/
+        //configuramos la barra de menu superior
         menuReserva.setText("Reserva");
         barraMenu.add(menuReserva);
 
@@ -124,8 +125,10 @@ public class DatosReserva extends JFrame {
         menuDatos.setText("Consultar Datos Cliente/Empleado");
         barraMenu.add(menuDatos);
 
+        //añadimos la barra de menu superior a la ventana
         setJMenuBar(barraMenu);
 
+        //añadimos los componentes al panel
         miPanel.add(labelNombre);
         miPanel.add(Nombre);
         miPanel.add(labelApellidos);
@@ -180,21 +183,24 @@ public class DatosReserva extends JFrame {
                         JOptionPane.showMessageDialog(null, "El cliente ya existe");
                     }else {
 
+                        //Verificamos que los campos no esten vacios
                         if (Main.verificarCamposVacios(nombre,apellidos,nif,direccion,telefono,email,ciudad,cp,pais)){
 
                             JOptionPane.showMessageDialog(null,"No has introducido datos");
                         }else {
-                            //Intrucccion para añadir el cliente a la base de datos
+                            //Instrucccion para añadir el cliente a la base de datos
                             String instruccionSQL = "INSERT INTO Cliente(DNI, Nombre, Apellido, Telf, Email, Direccion, Pais, Ciudad, CP) VALUES ('" + nif + "','" + nombre + "','" + apellidos + "','" + telefono + "','" + email + "','" + direccion + "','" + pais + "','" + ciudad + "','" + cp + "')";
                             miStatement.executeUpdate(instruccionSQL);
                             JOptionPane.showMessageDialog(null, "Perfecto se han introducido los datos correctamente!");
                             dispose();
+                            //abrimos la ventana de servicios extra, pasando como parametro el cliente que acabamos de crear, las fechas, la habitacion y el número de dias.
                             ServiciosExtra serviciosExtra = new ServiciosExtra(habitacion, cliente, fechaLlegada, fechaSalida, dias);
                             serviciosExtra.setVisible(true);
 
                         }
                     }
                 }catch(Exception ex) {
+                    //Si hay algún error en la conexión lo mostramos por pantalla
                     System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }

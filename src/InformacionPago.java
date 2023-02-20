@@ -1,5 +1,7 @@
 import javax.swing.*;
 //import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,12 +12,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class InformacionPago extends JFrame {
+public class InformacionPago extends JFrame implements ActionListener{
+    //Clase para crear la ventana de información de pago
 
+    //Declaración de variables
     private static JButton enviar;
 
+    //Constructor
     public InformacionPago(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias) throws ParseException {
 
+        //llamamos a método para crear la ventana y creamos el panel con sus componentes y la configuración posterior
         IniciarComponentes(habitacion, cliente, fechaLlegadaa, fechaSalidaa, extras, dias);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Informacion de pago");
@@ -34,23 +40,25 @@ public class InformacionPago extends JFrame {
 
     public void IniciarComponentes(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias) throws ParseException {
 
+        //Creamos el panel
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
 
         //Menu superior de la ventana
         JMenuBar barraMenu = new JMenuBar();
 
-        JMenuItem menuReserva = new JMenuItem("Reserva");
+        JMenuItem menuReserva = new JMenuItem("Reserva de Habitaciones");
         barraMenu.add(menuReserva);
 
-        JMenuItem menuHorariosTrabajador = new JMenuItem("Consultar Horarios Trabajador");
-        barraMenu.add(menuHorariosTrabajador);
+        JMenuItem menuHorarios = new JMenuItem("Consultar Horarios Trabajador");
+        barraMenu.add(menuHorarios);
 
-        JMenuItem menuDatosClientes = new JMenuItem("Datos Clientes");
-        barraMenu.add(menuDatosClientes);
+        JMenuItem menuDatos = new JMenuItem("Consultar Datos Cliente/Empleado");
+        barraMenu.add(menuDatos);
 
         setJMenuBar(barraMenu);
 
+        //Instanciamos los componentes
         JLabel infoPago = new JLabel();
         JLabel nombreTitularTarj = new JLabel();
         JTextField NombreTitularTarjetaa = new JTextField ();
@@ -67,6 +75,7 @@ public class InformacionPago extends JFrame {
         enviar = new JButton();
 
 
+        //Configuramos la posicion y el texto de los componentes
         infoPago.setBounds(10, 10, 150, 40);
         infoPago.setText("Información del Pago:");
 
@@ -93,6 +102,9 @@ public class InformacionPago extends JFrame {
         enviar.setBounds(530, 220, 170, 40);
         enviar.setText("Enviar");
 
+
+
+        //añadimos los componentes al panel
         miPanel.add(infoPago);
         miPanel.add(nombreTitularTarj);
         miPanel.add(NombreTitularTarjetaa);
@@ -107,6 +119,32 @@ public class InformacionPago extends JFrame {
         miPanel.add(enviar);
         add(miPanel);
 
+
+        //Añadimos los eventos a los componentes
+
+        //boton ventana datos
+        menuDatos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //abrimos la ventana de datos
+                VentanaDatos ventanaDatos = new VentanaDatos();
+                ventanaDatos.setVisible(true);
+                dispose();
+            }
+        });
+
+        //Boton ventana horarios
+        menuHorarios.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //abrimos la ventana de horarios
+                VentanaHorarios ventanaHorarios = new VentanaHorarios();
+                ventanaHorarios.setVisible(true);
+                dispose();
+            }
+        });
+
+        //Boton enviar
         enviar.setVisible(true);
         enviar.addActionListener(e -> {
             if (e.getSource() == enviar) {
@@ -120,13 +158,16 @@ public class InformacionPago extends JFrame {
 
                 try {
                     if(Main.verificarCamposVacios(NombreTitular,DNI,NumeroTarjeta,FechaCaducidadd,CVVP)){
+                        //Comprobamos que no haya campos vacios
                         JOptionPane.showMessageDialog(null,"No has introducido tus datos");
                     }else {
-                        //Conectamos a la base de datos
+                        //Conectamos a la base de datos e insertamos los datos de pago
                         Statement miStatement = ConexionDB.miConexion.createStatement();
                         String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
                         miStatement.executeUpdate(SQL);
                     }
+
+                    //Preguntamos si quiere generar un ticket
                     if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {
                         JOptionPane.showMessageDialog(null, "Imprimiendo ticket");
 
@@ -140,6 +181,7 @@ public class InformacionPago extends JFrame {
                     //SQL = "INSERT INTO Reserva (DNI, NumPlazaParking, NumHabitacion, ServicioExtra1, ServicioExtra2, ServicioExtra3, ServicioExtra4, ServicioExtra5, Descuento, PrecioTotal, FechaLlegada, FechaSalida) VALUES ('"+DNIR+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";
 
                 }catch(Exception ex) {
+                    //Si hay algun error al insertar los datos, mostramos un mensaje de error
                     System.out.println(ex);
                     JOptionPane.showMessageDialog(null,"Error: No se ha podido insertar los datos");
                 }
@@ -149,39 +191,57 @@ public class InformacionPago extends JFrame {
         });
     }
 
+    //Metodo para generar el ticket
     public void generarTicket(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias, String DNI, String NombreTitular, String NumeroTarjeta) throws IOException {
+        //Creamos un objeto file con la ruta del ticket
         File ticket = new File("ticket.txt");
 
+        //Si ya existe lo borramos
         if (ticket.exists()) {
             ticket.delete();
         }
 
+        //Creamos el archivo
         ticket.createNewFile();
+
+        //Mostramos la ruta en la que ha sido creado
         JOptionPane.showMessageDialog(null, "Ticket guardado en: " + ticket.getAbsolutePath());
 
+        //Creamos un objeto FileWriter y BufferedWriter para escribir en el archivo
         FileWriter fw = new FileWriter(ticket);
         BufferedWriter bw = new BufferedWriter(fw);
 
+        //Escribimos los datos de la reserva en el archivo
         bw.write("Nombre Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
         bw.newLine();
+
         bw.write("DNI: " + DNI);
         bw.newLine();
+
         bw.write("Nombre Titular Tarjeta: " + NombreTitular);
         bw.newLine();
+
         bw.write("Numero de Tarjeta: " + NumeroTarjeta.substring(0, 4) + " **** **** " + NumeroTarjeta.substring(12, 16));
         bw.newLine();
+
         bw.write("Numero de Habitacion: " + habitacion.getNumHabitacion());
         bw.newLine();
+
         bw.write("Tipo de Habitacion: " + habitacion.getTipoHabitacion());
         bw.newLine();
+
         bw.write("Fecha de Entrada: " + fechaLlegadaa);
         bw.newLine();
+
         bw.write("Fecha de Salida: " + fechaSalidaa);
         bw.newLine();
+
         bw.write("Precio habitacion (" + dias +" dias): " + habitacion.getPrecio()*dias + "€");
         bw.newLine();
+
         bw.write("Servicios extra: ");
         bw.newLine();
+
         if(extras.isBar()){
             bw.write("  Bar: " + extras.getPrecioBar() + "€");
             bw.newLine();
@@ -205,6 +265,7 @@ public class InformacionPago extends JFrame {
         bw.write("Total extras: " + extras.precioExtra() + "€");
         bw.newLine();
         bw.newLine();
+
         if(extras.isDescuentoFamiliaN()){
             bw.write("Precio final + descuento familia numerosa: " + (((habitacion.getPrecio()*dias) + extras.precioExtra())-(((habitacion.getPrecio()*dias) + extras.precioExtra())*extras.porcentDescuentoFamiliaN)) + "€");
         }else{
@@ -212,10 +273,16 @@ public class InformacionPago extends JFrame {
         }
         bw.newLine();
         bw.newLine();
+
         bw.write("Gracias por su reserva");
+
+        //Cerramos el BufferedWriter
         bw.close();
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
+    }
 }

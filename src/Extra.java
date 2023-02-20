@@ -1,4 +1,7 @@
 public class Extra {
+    //Clase Extras para guardar la informacion de los servicios extra seleccionados por el cliente
+
+    //Atributos
     boolean bar;
     boolean restaurante;
     boolean actividades;
@@ -6,6 +9,7 @@ public class Extra {
     boolean cajaFuerte;
     boolean descuentoFamiliaN;
 
+    //Precios de los servicios extra
     double precioBar= 10;
     double precioRestaurante = 30;
     double precioActividades = 40;
@@ -13,6 +17,7 @@ public class Extra {
     double precioCajaFuerte = 5;
     double porcentDescuentoFamiliaN = 0.1;
 
+    //Constructores con y sin parametros
     public Extra() {
     }
 
@@ -25,6 +30,7 @@ public class Extra {
         this.descuentoFamiliaN = descuentoFamiliaN;
     }
 
+    //Getters y Setters
     public boolean isBar() {
         return bar;
     }
@@ -97,6 +103,7 @@ public class Extra {
         return porcentDescuentoFamiliaN;
     }
 
+    //Método para calcular el precio total de los servicios extra seleccionados
     public double precioExtra(){
         double precioExtra = 0;
         if (bar) {
