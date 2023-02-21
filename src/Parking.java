@@ -17,9 +17,11 @@ public class Parking extends JFrame {
     Statement miStatement= null;
 
     public Parking(int numberOfSpaces, Habitacion habitacion, String fechaLlegada, String fechaSalida,  int dias) {
-
         super("Parking Lot");
-
+        //tamaño de la ventana
+        setSize(800,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
 
         this.numberOfSpaces = numberOfSpaces;
         ImageIcon icon = new ImageIcon("C:\\Users\\DAM.DESKTOP-GO77QJ7\\IdeaProjects\\parking\\wheelchair.png");
@@ -40,18 +42,21 @@ public class Parking extends JFrame {
         try {
             // En vez de cargar los items de el numberofSpaces, tenemos que realizar una carga de datos.
             miStatement = ConexionDB.miConexion.createStatement();
-            String sql = "SELECT * FROM Parking ORDER BY NumPlaza DESC";
+            String sql = "SELECT * FROM Parking ORDER BY NumPlaza ";
             ResultSet plazas = miStatement.executeQuery(sql);
-            int i = 0;
+            int i = -1;
             while (plazas.next()) {
                 i++;
+                parkingSpaces[i] = new JButton(String.valueOf(i + 1 ));
+                parkingSpaces[i].setBackground(Color.GREEN);
+                panel.add(parkingSpaces[i]);
 
-                parkingSpaces[i] = new JButton(String.valueOf(i));
+
                 if(plazas.getInt("ocupado")==0){
                     parkingSpaces[i].setBackground(Color.GREEN);
                     parkingSpaceAvailability[i] = true;
                 }
-                else{
+                else if(plazas.getInt("ocupado")==1){
                     parkingSpaces[i].setBackground(Color.RED);
                     parkingSpaceAvailability[i] = false;
                 }
@@ -61,7 +66,6 @@ public class Parking extends JFrame {
                 }
                 parkingSpaces[i].setPreferredSize(new Dimension(100, 40));
 
-                parkingSpaces[i].setBackground(Color.GREEN);
 
                 parkingSpaces[i].addActionListener(new ActionListener() {
                     @Override
@@ -96,7 +100,8 @@ public class Parking extends JFrame {
                         }
                     }
                 });
-                panel.add(parkingSpaces[i]);
+
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -147,6 +152,7 @@ public class Parking extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 DatosReserva datosReserva = new DatosReserva(habitacion, fechaLlegada, fechaSalida, dias);
                 datosReserva.setVisible(true);
+                dispose();
             }
         });
 // Add the new JPanel to the bottom of the main JPanel
@@ -154,9 +160,6 @@ public class Parking extends JFrame {
         add(panel);
 
 
-        //tamaño de la ventana
-        setSize(700,330);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+
     }
 }

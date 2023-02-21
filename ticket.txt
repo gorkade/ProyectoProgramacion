@@ -1,20 +1,16 @@
-Nombre Cliente: Bd ServiciosExtra
-DNI: 76543210J
-Nombre Titular Tarjeta: Bd ServiciosExtra
-Numero de Tarjeta: 1234 **** **** 4261
+Nombre Cliente: pedro sanchez
+DNI: 789
+Nombre Titular Tarjeta: pedro
+Numero de Tarjeta: 2222 **** **** 9999
 Numero de Habitacion: 1
 Tipo de Habitacion: Sencilla
 Fecha de Entrada: 22 de febr. 2023
-Fecha de Salida: 25 de febr. 2023
-Precio habitacion (3 dias): 750.0€
+Fecha de Salida: 26 de febr. 2023
+Precio habitacion (4 dias): 1000.0€
 Servicios extra: 
   Bar: 10.0€
-  Restaurante: 30.0€
-  Actividades: 40.0€
-  Guarderia: 40.0€
-  Caja Fuerte: 5.0€
-Total extras: 125.0€
+Total extras: 10.0€
 
-Precio final + descuento familia numerosa: 787.5€
+Precio final: 1010.0€
 
 Gracias por su reserva
