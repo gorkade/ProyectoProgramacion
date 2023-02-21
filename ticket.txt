@@ -1,16 +1,16 @@
-Nombre Cliente: pedro sanchez
-DNI: 789
-Nombre Titular Tarjeta: pedro
-Numero de Tarjeta: 2222 **** **** 9999
+Nombre Cliente: carles bonet
+DNI: 176
+Nombre Titular Tarjeta: carles
+Numero de Tarjeta: 3333 **** **** 8888
 Numero de Habitacion: 1
 Tipo de Habitacion: Sencilla
-Fecha de Entrada: 22 de febr. 2023
-Fecha de Salida: 26 de febr. 2023
-Precio habitacion (4 dias): 1000.0€
+Fecha de Entrada: 24 de febr. 2023
+Fecha de Salida: 25 de febr. 2023
+Precio habitacion (1 dias): 250.0€
 Servicios extra: 
-  Bar: 10.0€
-Total extras: 10.0€
+  Actividades: 40.0€
+Total extras: 40.0€
 
-Precio final: 1010.0€
+Precio final: 290.0€
 
 Gracias por su reserva

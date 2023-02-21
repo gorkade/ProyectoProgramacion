@@ -24,7 +24,10 @@ public class Parking extends JFrame {
         setVisible(true);
 
         this.numberOfSpaces = numberOfSpaces;
-        ImageIcon icon = new ImageIcon("C:\\Users\\DAM.DESKTOP-GO77QJ7\\IdeaProjects\\parking\\wheelchair.png");
+        ImageIcon icon = new ImageIcon("sillaRuedas.png");
+        Image scaledImage = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        icon.setImage(scaledImage);
+
 
         panel = new JPanel();
         JLabel label = new JLabel("Plazas Parking disponibles:");
