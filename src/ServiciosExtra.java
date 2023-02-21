@@ -2,11 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 
 public class ServiciosExtra extends JFrame implements ActionListener {
+    //clase para seleccionar los servicios extras que se quieren contratar
     public ServiciosExtra(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida, int dias)//constructor
     {
+        //llamamos a método para crear la ventana y creamos el panel con sus componentes y la configuración posterior
         iniciarComponentes(habitacion, cliente, fechaLlegada, fechaSalida, dias);
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Reserva");
@@ -22,10 +25,7 @@ public class ServiciosExtra extends JFrame implements ActionListener {
 
     private void iniciarComponentes(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida, int dias) {
 
-        /**/
-
         /*Inicia instancias de los componentes*/
-        //contenedor de los componentes
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
         JMenuItem menuReserva = new JMenuItem("Reserva");
@@ -34,7 +34,6 @@ public class ServiciosExtra extends JFrame implements ActionListener {
         JMenuBar barraMenu = new JMenuBar();
         JScrollBar scrollBar = new JScrollBar();
 
-        /*labels de los menus para mostrar en pantalla*/
         JLabel labelServiciosExtra = new JLabel();
         JCheckBox bar = new JCheckBox("Bar (+10€)");
         JCheckBox restaurante = new JCheckBox("Restaurante (+30€)");
@@ -101,7 +100,12 @@ public class ServiciosExtra extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Extra extras = new Extra();
+                Extra extras = null;
+                try {
+                    extras = new Extra();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
                 if (bar.isSelected()) {
                     extras.setBar(true);

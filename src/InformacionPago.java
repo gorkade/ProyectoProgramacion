@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -192,7 +193,7 @@ public class InformacionPago extends JFrame implements ActionListener{
     }
 
     //Metodo para generar el ticket
-    public void generarTicket(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias, String DNI, String NombreTitular, String NumeroTarjeta) throws IOException {
+    public void generarTicket(Habitacion habitacion, Cliente cliente, String fechaLlegadaa, String fechaSalidaa, Extra extras, int dias, String DNI, String NombreTitular, String NumeroTarjeta) throws IOException, SQLException {
         //Creamos un objeto file con la ruta del ticket
         File ticket = new File("ticket.txt");
 

@@ -1,3 +1,7 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Extra {
     //Clase Extras para guardar la informacion de los servicios extra seleccionados por el cliente
 
@@ -10,18 +14,23 @@ public class Extra {
     boolean descuentoFamiliaN;
 
     //Precios de los servicios extra
-    double precioBar= 10;
-    double precioRestaurante = 30;
-    double precioActividades = 40;
-    double precioGuarderia = 40;
-    double precioCajaFuerte = 5;
+
+    //Nos conectamos a la base de datos para obtener los precios de los servicios extra
+
+    Statement sentencia = ConexionDB.miConexion.createStatement();
+
+    double precioBar;
+    double precioRestaurante;
+    double precioActividades;
+    double precioGuarderia;
+    double precioCajaFuerte;
     double porcentDescuentoFamiliaN = 0.1;
 
     //Constructores con y sin parametros
-    public Extra() {
+    public Extra() throws SQLException {
     }
 
-    public Extra(boolean bar, boolean restaurante, boolean actividades, boolean guarderia, boolean cajaFuerte, boolean descuentoFamiliaN) {
+    public Extra(boolean bar, boolean restaurante, boolean actividades, boolean guarderia, boolean cajaFuerte, boolean descuentoFamiliaN) throws SQLException {
         this.bar = bar;
         this.restaurante = restaurante;
         this.actividades = actividades;
@@ -79,23 +88,33 @@ public class Extra {
         this.descuentoFamiliaN = descuentoFamiliaN;
     }
 
-    public double getPrecioBar() {
+    public double getPrecioBar() throws SQLException {
+        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Bar'");
+        this.precioBar = resultado.getDouble("Precio");
         return precioBar;
     }
 
-    public double getPrecioRestaurante() {
+    public double getPrecioRestaurante() throws SQLException {
+        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Restaurante'");
+        this.precioRestaurante = resultado.getDouble("Precio");
         return precioRestaurante;
     }
 
-    public double getPrecioActividades() {
+    public double getPrecioActividades() throws SQLException {
+        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Acceso a Actividades'");
+        this.precioActividades = resultado.getDouble("Precio");
         return precioActividades;
     }
 
-    public double getPrecioGuarderia() {
+    public double getPrecioGuarderia() throws SQLException {
+        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Guarderia'");
+        this.precioGuarderia = resultado.getDouble("Precio");
         return precioGuarderia;
     }
 
-    public double getPrecioCajaFuerte() {
+    public double getPrecioCajaFuerte() throws SQLException {
+        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Caja Fuerte'");
+        this.precioCajaFuerte = resultado.getDouble("Precio");
         return precioCajaFuerte;
     }
 
