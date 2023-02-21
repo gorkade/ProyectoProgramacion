@@ -7,6 +7,12 @@ import java.text.ParseException;
 
 public class ServiciosExtra extends JFrame implements ActionListener {
     //clase para seleccionar los servicios extras que se quieren contratar
+
+    //Atributos menu superior
+    JMenuItem menuReserva;
+    JMenuItem menuHorarios;
+    JMenuItem menuDatos;
+
     public ServiciosExtra(Habitacion habitacion, Cliente cliente, String fechaLlegada, String fechaSalida, int dias)//constructor
     {
         //llamamos a método para crear la ventana y creamos el panel con sus componentes y la configuración posterior
@@ -28,9 +34,9 @@ public class ServiciosExtra extends JFrame implements ActionListener {
         /*Inicia instancias de los componentes*/
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
-        JMenuItem menuReserva = new JMenuItem("Reserva");
-        JMenuItem menuHorarios = new JMenuItem("Horarios");
-        JMenuItem menuDatos = new JMenuItem("Datos");
+        menuReserva = new JMenuItem("Reserva");
+        menuHorarios = new JMenuItem("Horarios");
+        menuDatos = new JMenuItem("Datos");
         JMenuBar barraMenu = new JMenuBar();
         JScrollBar scrollBar = new JScrollBar();
 
@@ -102,8 +108,9 @@ public class ServiciosExtra extends JFrame implements ActionListener {
 
                 Extra extras = null;
                 try {
-                    extras = new Extra();
+                    extras = new Extra(false,false,false,false,false,false);
                 } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
                     throw new RuntimeException(ex);
                 }
 
@@ -156,7 +163,22 @@ public class ServiciosExtra extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==menuHorarios){
+            //abrimos la ventana de horarios
+            VentanaHorarios ventanaHorarios = new VentanaHorarios();
 
+            ventanaHorarios.setVisible(true);
+
+            this.setVisible(false);
+        }
+
+        if(e.getSource()==menuDatos){
+            //abrimos la ventana de datos
+            VentanaDatos ventanaDatos = new VentanaDatos();
+            ventanaDatos.setVisible(true);
+
+            this.setVisible(false);
+        }
     }
 }
 

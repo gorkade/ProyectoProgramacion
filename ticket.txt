@@ -1,18 +1,20 @@
-Nombre Cliente: Ejemplo Ejemplo
-DNI: 09876543P
-Nombre Titular Tarjeta: Ejemplo Martinez
-Numero de Tarjeta: 6473 **** **** 9876
-Numero de Habitacion: 2
+Nombre Cliente: Bd ServiciosExtra
+DNI: 76543210J
+Nombre Titular Tarjeta: Bd ServiciosExtra
+Numero de Tarjeta: 1234 **** **** 4261
+Numero de Habitacion: 1
 Tipo de Habitacion: Sencilla
-Fecha de Entrada: 17 de febr. 2023
-Fecha de Salida: 19 de febr. 2023
-Precio habitacion (2 dias): 600.0€
+Fecha de Entrada: 22 de febr. 2023
+Fecha de Salida: 25 de febr. 2023
+Precio habitacion (3 dias): 750.0€
 Servicios extra: 
   Bar: 10.0€
   Restaurante: 30.0€
+  Actividades: 40.0€
   Guarderia: 40.0€
-Total extras: 80.0€
+  Caja Fuerte: 5.0€
+Total extras: 125.0€
 
-Precio final + descuento familia numerosa: 612.0€
+Precio final + descuento familia numerosa: 787.5€
 
 Gracias por su reserva

@@ -166,7 +166,7 @@ public class InformacionPago extends JFrame implements ActionListener{
                         Statement miStatement = ConexionDB.miConexion.createStatement();
                         String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
                         miStatement.executeUpdate(SQL);
-                    }
+                        JOptionPane.showMessageDialog(null,"Datos introducidos correctamente");}
 
                     //Preguntamos si quiere generar un ticket
                     if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {

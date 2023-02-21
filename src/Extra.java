@@ -37,6 +37,31 @@ public class Extra {
         this.guarderia = guarderia;
         this.cajaFuerte = cajaFuerte;
         this.descuentoFamiliaN = descuentoFamiliaN;
+
+        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Bar'");
+        if(resultado.next()){
+            this.precioBar = resultado.getDouble("Precio");
+        }
+
+        resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Restaurante'");
+        if(resultado.next()){
+            this.precioRestaurante = resultado.getDouble("Precio");
+        }
+
+        resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Acceso a Actividades'");
+        if(resultado.next()){
+            this.precioActividades = resultado.getDouble("Precio");
+        }
+
+        resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Guarderia'");
+        if(resultado.next()){
+            this.precioGuarderia = resultado.getDouble("Precio");
+        }
+
+        resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Caja Fuerte'");
+        if(resultado.next()){
+            this.precioCajaFuerte = resultado.getDouble("Precio");
+        }
     }
 
     //Getters y Setters
@@ -89,32 +114,22 @@ public class Extra {
     }
 
     public double getPrecioBar() throws SQLException {
-        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Bar'");
-        this.precioBar = resultado.getDouble("Precio");
         return precioBar;
     }
 
     public double getPrecioRestaurante() throws SQLException {
-        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Restaurante'");
-        this.precioRestaurante = resultado.getDouble("Precio");
         return precioRestaurante;
     }
 
     public double getPrecioActividades() throws SQLException {
-        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Acceso a Actividades'");
-        this.precioActividades = resultado.getDouble("Precio");
         return precioActividades;
     }
 
     public double getPrecioGuarderia() throws SQLException {
-        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Guarderia'");
-        this.precioGuarderia = resultado.getDouble("Precio");
         return precioGuarderia;
     }
 
     public double getPrecioCajaFuerte() throws SQLException {
-        ResultSet resultado = sentencia.executeQuery("SELECT Precio FROM ServiciosExtra WHERE Tipo like 'Caja Fuerte'");
-        this.precioCajaFuerte = resultado.getDouble("Precio");
         return precioCajaFuerte;
     }
 
