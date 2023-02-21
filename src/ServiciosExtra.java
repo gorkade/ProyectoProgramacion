@@ -38,7 +38,6 @@ public class ServiciosExtra extends JFrame implements ActionListener {
         menuHorarios = new JMenuItem("Horarios");
         menuDatos = new JMenuItem("Datos");
         JMenuBar barraMenu = new JMenuBar();
-        JScrollBar scrollBar = new JScrollBar();
 
         JLabel labelServiciosExtra = new JLabel();
         JCheckBox bar = new JCheckBox("Bar (+10€)");
@@ -55,7 +54,7 @@ public class ServiciosExtra extends JFrame implements ActionListener {
 
         /*Fin instancias de los componentes*/
 
-        /*Labels*/
+        //Configuramos la posicion y los textos de los componentes
         labelServiciosExtra.setBounds(10,10,200,30);
         labelServiciosExtra.setText("Servicios extra : ");
 
@@ -82,13 +81,16 @@ public class ServiciosExtra extends JFrame implements ActionListener {
         menuDatos.setText("Consultar Datos Cliente/Empleado");
         barraMenu.add(menuDatos);
 
+        //añadimos la barra de menu superior a la ventana
         setJMenuBar(barraMenu);
 
 
+        //Añadimos los Listener a los botones que vamos a escuchar
         menuHorarios.addActionListener(this);
         menuDatos.addActionListener(this);
         enviar.addActionListener(this);
 
+        //Añadimos los componentes al panel
         miPanel.add(labelServiciosExtra);
         miPanel.add(bar);
         miPanel.add(restaurante);
@@ -102,11 +104,13 @@ public class ServiciosExtra extends JFrame implements ActionListener {
 
         enviar.setVisible(true);
 
+        //programamos el boton enviar
         enviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Extra extras = null;
+                //creamos un nuevo objeto extra vacío
+                Extra extras;
                 try {
                     extras = new Extra(false,false,false,false,false,false);
                 } catch (SQLException ex) {
@@ -114,45 +118,37 @@ public class ServiciosExtra extends JFrame implements ActionListener {
                     throw new RuntimeException(ex);
                 }
 
+                //Comprobamos que servicios se han seleccionado y los cambiamos a true en el objeto extra
                 if (bar.isSelected()) {
                     extras.setBar(true);
-                }else {
-                    extras.setBar(false);
                 }
 
                 if (restaurante.isSelected()) {
                     extras.setRestaurante(true);
-                }else {
-                    extras.setRestaurante(false);
                 }
 
                 if (actividades.isSelected()) {
                     extras.setActividades(true);
-                }else {
-                    extras.setActividades(false);
                 }
 
                 if (guarderia.isSelected()) {
                     extras.setGuarderia(true);
-                }else {
-                    extras.setGuarderia(false);
                 }
 
                 if (cajaFuerte.isSelected()) {
                     extras.setCajaFuerte(true);
-                }else {
-                    extras.setCajaFuerte(false);
                 }
 
                 if (descuentoFamiliaN.isSelected()) {
                     extras.setDescuentoFamiliaN(true);
-                }else {
-                    extras.setDescuentoFamiliaN(false);
                 }
 
                 try {
+                    //abrimos la ventana de la información de pago con la habitación, el cliente, la fecha de llegada,
+                    // la fecha de salida, los días de estancia y los servicios extra como parametros
                     InformacionPago infoPago = new InformacionPago(habitacion, cliente, fechaLlegada, fechaSalida, extras, dias);
                     infoPago.setVisible(true);
+                    //cerramos la ventana actual
                     dispose();
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
