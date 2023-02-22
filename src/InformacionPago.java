@@ -166,17 +166,27 @@ public class InformacionPago extends JFrame implements ActionListener{
                         Statement miStatement = ConexionDB.miConexion.createStatement();
                         String SQL = "INSERT INTO Pago (DNI, CVV, NumTargeta, Titular, FechaCaducidad) VALUES ('" + DNI + "','" + CVVP + "','" + NumeroTarjeta + "','" + NombreTitular + "','" + FechaCaducidadd + "')";
                         miStatement.executeUpdate(SQL);
-                        JOptionPane.showMessageDialog(null,"Datos introducidos correctamente");}
+                        JOptionPane.showMessageDialog(null, "Datos introducidos correctamente");
 
-                    //Preguntamos si quiere generar un ticket
-                    if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {
-                        JOptionPane.showMessageDialog(null, "Imprimiendo ticket");
+                        //Preguntamos si quiere generar un ticket
+                        if (JOptionPane.YES_OPTION == JOptionPane.showOptionDialog(null, "¿Desea generar un ticket?", "Imprimir Ticket", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)) {
+                            JOptionPane.showMessageDialog(null, "Imprimiendo ticket");
 
-                        //Generamos el ticket de la reserva
-                        generarTicket(habitacion, cliente, fechaLlegadaa, fechaSalidaa, extras, dias,  DNI, NombreTitular, NumeroTarjeta);
+                            //Generamos el ticket de la reserva
+                            generarTicket(habitacion, cliente, fechaLlegadaa, fechaSalidaa, extras, dias, DNI, NombreTitular, NumeroTarjeta);
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se imprimira ticket");
+                        } else {
+                            //Si no quiere generar un ticket, se muestra un mensaje notificando que no se va a imprimir
+                            JOptionPane.showMessageDialog(null, "No se imprimira ticket");
+                        }
+                        //Mostramos un mensaje agradeciendo la reserva
+                        JOptionPane.showMessageDialog(null, "Gracias por su reserva");
+
+                        //Volvemos a la ventana de inicio
+                        PantallaInicial pantallaInicial = new PantallaInicial();
+                        pantallaInicial.setVisible(true);
+                        //Cerramos la ventana actual
+                        dispose();
                     }
 
                     //SQL = "INSERT INTO Reserva (DNI, NumPlazaParking, NumHabitacion, ServicioExtra1, ServicioExtra2, ServicioExtra3, ServicioExtra4, ServicioExtra5, Descuento, PrecioTotal, FechaLlegada, FechaSalida) VALUES ('"+DNIR+"','"+CVVP+"','"+NumeroTarjeta+"','"+NombreTitular+"','"+FechaCaducidadd+"')";

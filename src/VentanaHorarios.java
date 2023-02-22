@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class VentanaHorarios extends JFrame implements ActionListener{
+    //Esta clase muestra la ventana de horarios de un trabajador
+
+    //Atributos
     private JMenuItem menuReserva;
     private JMenuItem menuDatos;
     private JMenuItem menuHorarios;
@@ -16,6 +19,7 @@ public class VentanaHorarios extends JFrame implements ActionListener{
 
     public VentanaHorarios() //constructor
     {
+        //llamamos a método para crear la ventana y creamos el panel con sus componentes y la configuración posterior
         iniciarComponentes();
         //Asigna un titulo a la barra de titulo
         setTitle("Menú Hotel : Consultar Horarios");
@@ -30,10 +34,8 @@ public class VentanaHorarios extends JFrame implements ActionListener{
     }
 
     private void iniciarComponentes() {
-        /**/
 
         /*Inicia instancias de los componentes*/
-        //contenedor de los componentes
         JPanel miPanel = new JPanel();
         miPanel.setLayout(null);
         menuReserva = new JMenuItem("Reserva");
@@ -50,7 +52,7 @@ public class VentanaHorarios extends JFrame implements ActionListener{
 
         consultar = new Button("Consultar");
 
-        /*Labels*/
+        //Configuramos la posicion y los textos de los componentes
         titulo.setBounds(10,0,250,30);
         titulo.setText("CONSULTAR HORARIOS TRABAJADORES:");
 
@@ -77,12 +79,15 @@ public class VentanaHorarios extends JFrame implements ActionListener{
         menuDatos.setText("Consultar Datos Cliente/Empleado");
         barraMenu.add(menuDatos);
 
+        //Agrega la barra de menu a la ventana
         setJMenuBar(barraMenu);
 
+        //añadimos los Listeners necesarios
         consultar.addActionListener(this);
         menuReserva.addActionListener(this);
         menuDatos.addActionListener(this);
 
+        //Agregamos los componentes al panel
         miPanel.add(titulo);
         miPanel.add(labelDNI);
         miPanel.add(dni);
@@ -92,38 +97,48 @@ public class VentanaHorarios extends JFrame implements ActionListener{
         add(miPanel);
 
         consultar.setVisible(true);
+        //escondemos los componentes que no se muestran al principio
         labelHorario.setVisible(false);
         labelZona.setVisible(false);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //programamos el boton consultar
         if (e.getSource() == consultar) {
 
             try {
-
+                //conectamos con la base de datos y consultamos los datos del trabajador con el dni introducido
                 Statement sentencia = ConexionDB.miConexion.createStatement();
                 ResultSet resultado = sentencia.executeQuery("SELECT * FROM Empleado WHERE DNI like '" + dni.getText() + "'");
 
-                while (resultado.next()) {
+                if (resultado.next()) {
+                    //si el dni existe en la base de datos, mostramos el horario y la zona del trabajador
                     labelHorario.setText("Horario:      Hora Inicio: " + resultado.getString("horaInicio") + " Hora Fin: " + resultado.getString("horaFinal"));
                     labelZona.setText("Zona: " + resultado.getString("zona"));
+                }else{
+                    //si el dni no existe en la base de datos, mostramos un mensaje de error
+                    JOptionPane.showMessageDialog(null,"No se ha encontrado el Empleado");
                 }
             } catch (SQLException ex) {
+                //si hay algún error en la consulta, mostramos un mensaje de error
                 throw new RuntimeException(ex);
             }
 
+            //mostramos los componentes que contiene el horario y la zona del trabajador
             labelHorario.setVisible(true);
             labelZona.setVisible(true);
         }
 
         if (e.getSource() == menuReserva) {
+            //si pulsamos el boton de reserva, abrimos la ventana inicial de reserva
             InicioReserva miFrame= new InicioReserva();
             miFrame.setVisible(true);
             this.setVisible(false);
         }
 
         if(e.getSource()==menuDatos){
+            //si pulsamos el boton de datos, abrimos la ventana de datos
             VentanaDatos ventanaDatos = new VentanaDatos();
             ventanaDatos.setVisible(true);
 
